@@ -52,8 +52,8 @@ public class InvoiceService {
         invoice.setCustomerAddress(form.getCustomerAddress());
         invoice.setCustomerPhone(form.getCustomerPhone());
         invoice.setCustomerGstin(form.getCustomerGstin());
-        invoice.setIssueDate(form.getIssueDate());
-        invoice.setDeliveryDate(form.getDeliveryDate());
+        invoice.setIssueDate(form.getIssueDate() != null ? form.getIssueDate() : java.time.LocalDate.now());
+        invoice.setDeliveryDate(form.getDeliveryDate() != null ? form.getDeliveryDate() : java.time.LocalDate.now());
         invoice.setVehicleNumber(form.getVehicleNumber());
         invoice.setPlaceOfSupply(form.getPlaceOfSupply());
 
