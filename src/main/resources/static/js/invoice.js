@@ -1,6 +1,5 @@
 (function () {
     const GST_RATE = 0.18;
-    const HALF_GST = 0.09;
 
     const tableBody = document.querySelector('#itemsTable tbody');
     const addButton = document.querySelector('#addItem');
@@ -44,6 +43,10 @@
         return isNaN(number) ? fallback : number;
     }
 
+    function formatFromPaise(paise) {
+        return (paise / 100).toFixed(2);
+    }
+
     function updateRowCalculations(row) {
         const finalInput = row.querySelector('.final-amount');
         const quantityInput = row.querySelector('.quantity');
@@ -60,14 +63,16 @@
             return;
         }
 
-        const totalFinalAmount = finalAmountPerUnit * quantity;
-        const baseAmount = totalFinalAmount / (1 + GST_RATE);
-        const sgst = baseAmount * HALF_GST;
-        const cgst = baseAmount * HALF_GST;
+        const finalPaisePerUnit = Math.round(finalAmountPerUnit * 100);
+        const totalFinalPaise = finalPaisePerUnit * quantity;
+        const basePaise = Math.round(totalFinalPaise / (1 + GST_RATE));
+        const taxPaise = totalFinalPaise - basePaise;
+        const sgstPaise = Math.round(taxPaise / 2);
+        const cgstPaise = taxPaise - sgstPaise;
 
-        baseInput.value = formatCurrency(baseAmount);
-        sgstInput.value = formatCurrency(sgst);
-        cgstInput.value = formatCurrency(cgst);
+        baseInput.value = formatFromPaise(basePaise);
+        sgstInput.value = formatFromPaise(sgstPaise);
+        cgstInput.value = formatFromPaise(cgstPaise);
     }
 
     function updateTotals() {
