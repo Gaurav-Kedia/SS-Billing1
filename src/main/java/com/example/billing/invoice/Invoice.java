@@ -13,6 +13,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "invoices")
@@ -178,5 +179,19 @@ public class Invoice {
 
     public void setBillNumber(String billNumber) {
         this.billNumber = billNumber;
+    }
+
+    public BigDecimal getTotalSgstAmount() {
+        return items.stream()
+                .map(InvoiceItem::getSgstAmount)
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public BigDecimal getTotalCgstAmount() {
+        return items.stream()
+                .map(InvoiceItem::getCgstAmount)
+                .filter(Objects::nonNull)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

@@ -6,97 +6,187 @@
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 11px;
-            color: #000;
-            padding: 18px;
+            color: #000000;
+            margin: 0;
+            padding: 12px;
         }
 
-        .invoice-wrapper {
+        .sheet {
             border: 2px solid #0a2a5c;
-            padding: 12px 16px;
+            padding: 12px 14px;
         }
 
-        .invoice-header {
+        .title-row {
             text-align: center;
-            border-bottom: 2px solid #0a2a5c;
+            border-bottom: 1.5px solid #0a2a5c;
             padding-bottom: 6px;
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
 
-        .invoice-header .title {
-            font-size: 12px;
-            font-weight: bold;
+        .title-row h1 {
+            margin: 0;
+            font-size: 26px;
             letter-spacing: 2px;
             margin-bottom: 4px;
         }
 
-        .invoice-header h1 {
-            font-size: 26px;
+        .title-row h2 {
+            margin: 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+        }
+
+        .title-row p {
             margin: 2px 0;
-            letter-spacing: 3px;
-        }
-
-        .invoice-header p {
-            margin: 1px 0;
-        }
-
-        .invoice-subheader {
-            display: flex;
-            justify-content: space-between;
-            border-bottom: 1px solid #0a2a5c;
-            padding-bottom: 4px;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-
-        .summary-table,
-        .items-table,
-        .totals-table,
-        .bank-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 8px;
-        }
-
-        .summary-table th,
-        .summary-table td,
-        .items-table th,
-        .items-table td,
-        .totals-table th,
-        .totals-table td,
-        .bank-table th,
-        .bank-table td {
-            border: 1px solid #0a2a5c;
-            padding: 6px 8px;
-        }
-
-        .summary-table th {
-            width: 18%;
-        }
-
-        .summary-table td {
-            width: 32%;
-        }
-
-        .items-table thead th {
-            text-align: center;
             font-size: 10px;
         }
 
-        .items-table tbody td {
+        .header {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 10px;
+        }
+
+        .seller-block {
+            flex: 1.4;
+            border: 1px solid #0a2a5c;
+            padding: 8px 10px;
+        }
+
+        .seller-block h3 {
+            margin: 0 0 4px 0;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .seller-block p {
+            margin: 2px 0;
+        }
+
+        .meta-table {
+            flex: 1;
+            border: 1px solid #0a2a5c;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        .meta-table th,
+        .meta-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            text-align: left;
+        }
+
+        .meta-table th {
+            width: 48%;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+            background-color: #f2f5ff;
+        }
+
+        .section {
+            border: 1px solid #0a2a5c;
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            background-color: #dbe3ff;
+            padding: 4px 6px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.7px;
+            font-size: 10px;
+        }
+
+        .section-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .section-table th,
+        .section-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
             vertical-align: top;
         }
 
-        .items-table .amount-header {
-            background-color: #f4f6fb;
+        .section-table th {
+            width: 32%;
+            background-color: #f7f9ff;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.5px;
         }
 
-        .totals-table {
+        .section-grid {
+            display: flex;
+            gap: 10px;
+        }
+
+        .section-grid .section {
+            flex: 1;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
             margin-top: 12px;
         }
 
-        .totals-table th {
-            width: 70%;
+        .items-table th,
+        .items-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 6px;
+        }
+
+        .items-table thead th {
+            background-color: #dbe3ff;
+            text-align: center;
+            text-transform: uppercase;
+            font-size: 10px;
+            letter-spacing: 0.5px;
+        }
+
+        .items-table tbody td {
+            font-size: 10px;
+        }
+
+        .items-table tbody td.center {
+            text-align: center;
+        }
+
+        .items-table tbody td.amount {
             text-align: right;
+            font-weight: bold;
+        }
+
+        .totals-signature {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .totals-table {
+            flex: 1;
+            border: 1px solid #0a2a5c;
+            border-collapse: collapse;
+        }
+
+        .totals-table th,
+        .totals-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            font-size: 10px;
+        }
+
+        .totals-table th {
+            width: 60%;
+            text-transform: uppercase;
+            background-color: #f2f5ff;
+            letter-spacing: 0.5px;
         }
 
         .totals-table td {
@@ -104,170 +194,247 @@
             font-weight: bold;
         }
 
-        .declaration {
-            border: 1px solid #0a2a5c;
-            padding: 6px 8px;
-            min-height: 70px;
-            margin-top: 12px;
+        .totals-table tr.grand-total th,
+        .totals-table tr.grand-total td {
+            font-size: 11px;
+            padding: 8px;
+            background-color: #d0dbff;
         }
 
-        .signature-row {
-            margin-top: 20px;
+        .bank-declaration {
+            flex: 1;
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .signature-box {
-            width: 48%;
+        .bank-table {
             border: 1px solid #0a2a5c;
-            height: 90px;
-            padding: 6px 8px;
-        }
-
-        .signature-box p {
-            margin-top: 54px;
-            text-align: center;
-            font-weight: bold;
-        }
-
-        .bank-table th {
-            width: 30%;
+            border-collapse: collapse;
+            width: 100%;
         }
 
         .bank-table caption {
             caption-side: top;
-            font-weight: bold;
-            margin-bottom: 4px;
             text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 4px 6px;
+        }
+
+        .bank-table th,
+        .bank-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            font-size: 10px;
+        }
+
+        .declaration {
+            border: 1px solid #0a2a5c;
+            padding: 8px 10px;
+            font-size: 10px;
+            line-height: 1.4;
+        }
+
+        .signature-row {
+            display: flex;
+            gap: 12px;
+            margin-top: 12px;
+        }
+
+        .signature-box {
+            flex: 1;
+            border: 1px solid #0a2a5c;
+            height: 95px;
+            padding: 6px 8px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            font-size: 10px;
+        }
+
+        .signature-box .label {
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .signature-box .caption {
+            text-align: right;
+            font-weight: bold;
+            text-transform: uppercase;
         }
     </style>
 </head>
 <body>
-<div class="invoice-wrapper">
-    <div class="invoice-header">
-        <div class="title">TAX INVOICE</div>
-        <h1>SHANKAR SALES</h1>
+<div class="sheet">
+    <div class="title-row">
+        <h2>Tax Invoice</h2>
+        <h1>Shankar Sales</h1>
         <p>Hing House for Doors &amp; PVC/FRP Doors &amp; Aluminium &amp; Windows</p>
         <p>G-6, R. B. Rania Complex, 6th Chouk, Buxibazar, Cuttack - 753001</p>
-        <p>Phone: +91 9437329641</p>
+        <p>Phone: +91 9437329641 &nbsp; | &nbsp; Email: shankarsales.ctc@gmail.com</p>
     </div>
 
-    <div class="invoice-subheader">
-        <span>GSTIN: 21AABCS2061K1ZV</span>
-        <span>STATE: ODISHA</span>
-        <span>CODE: 21</span>
+    <div class="header">
+        <div class="seller-block">
+            <h3>Supplier Details</h3>
+            <p><strong>GSTIN:</strong> 21AABCS2061K1ZV</p>
+            <p><strong>State:</strong> ODISHA (Code: 21)</p>
+            <p><strong>Bank:</strong> Kotak Mahindra Bank, Cuttack Branch</p>
+            <p><strong>Account No.:</strong> 6500159555</p>
+            <p><strong>IFSC:</strong> KKBK0008788</p>
+        </div>
+        <table class="meta-table">
+            <tr>
+                <th>Bill No.</th>
+                <td th:text="${invoice.billNumber}"></td>
+            </tr>
+            <tr>
+                <th>Date of Issue</th>
+                <td th:text="${invoice.issueDate != null ? #temporals.format(invoice.issueDate, 'dd/MM/yyyy') : #temporals.format(T(java.time.LocalDate).now(), 'dd/MM/yyyy')}"></td>
+            </tr>
+            <tr>
+                <th>Date of Delivery</th>
+                <td th:text="${invoice.deliveryDate != null ? #temporals.format(invoice.deliveryDate, 'dd/MM/yyyy') : #temporals.format(T(java.time.LocalDate).now(), 'dd/MM/yyyy')}"></td>
+            </tr>
+            <tr>
+                <th>Vehicle No.</th>
+                <td th:text="${invoice.vehicleNumber}"></td>
+            </tr>
+            <tr>
+                <th>Place of Supply</th>
+                <td th:text="${invoice.placeOfSupply}"></td>
+            </tr>
+        </table>
     </div>
 
-    <table class="summary-table">
-        <tr>
-            <th>Bill No.</th>
-            <td th:text="${invoice.billNumber}"></td>
-            <th>Date of Issue</th>
-            <td th:text="${invoice.issueDate}"></td>
-            <th>Date of Delivery</th>
-            <td th:text="${invoice.deliveryDate}"></td>
-        </tr>
-        <tr>
-            <th>Customer Name</th>
-            <td th:text="${invoice.customerName}"></td>
-            <th>Customer GSTIN / UID</th>
-            <td th:text="${invoice.customerGstin}"></td>
-            <th>Vehicle No.</th>
-            <td th:text="${invoice.vehicleNumber}"></td>
-        </tr>
-        <tr>
-            <th>Address</th>
-            <td colspan="3" th:text="${invoice.customerAddress}"></td>
-            <th>Place of Supply</th>
-            <td th:text="${invoice.placeOfSupply}"></td>
-        </tr>
-        <tr>
-            <th>Contact No.</th>
-            <td th:text="${invoice.customerPhone}"></td>
-            <th>State</th>
-            <td>ODISHA</td>
-            <th>State Code</th>
-            <td>21</td>
-        </tr>
-    </table>
+    <div class="section-grid">
+        <div class="section">
+            <div class="section-title">Buyer Details</div>
+            <table class="section-table">
+                <tr>
+                    <th>Customer Name</th>
+                    <td th:text="${invoice.customerName}"></td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td th:text="${invoice.customerAddress}"></td>
+                </tr>
+                <tr>
+                    <th>Contact No.</th>
+                    <td th:text="${invoice.customerPhone}"></td>
+                </tr>
+                <tr>
+                    <th>Customer GSTIN / UID</th>
+                    <td th:text="${invoice.customerGstin}"></td>
+                </tr>
+            </table>
+        </div>
+        <div class="section">
+            <div class="section-title">Supply Details</div>
+            <table class="section-table">
+                <tr>
+                    <th>State</th>
+                    <td>ODISHA</td>
+                </tr>
+                <tr>
+                    <th>State Code</th>
+                    <td>21</td>
+                </tr>
+                <tr>
+                    <th>Place of Supply</th>
+                    <td th:text="${invoice.placeOfSupply}"></td>
+                </tr>
+                <tr>
+                    <th>Transport / Vehicle</th>
+                    <td th:text="${invoice.vehicleNumber}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
 
     <table class="items-table">
         <thead>
         <tr>
-            <th rowspan="2">Sl. No.</th>
-            <th rowspan="2">Description</th>
-            <th rowspan="2">HSN</th>
-            <th rowspan="2">Qty</th>
-            <th colspan="4" class="amount-header">Amount (₹)</th>
-        </tr>
-        <tr>
-            <th>Value of Goods</th>
-            <th>SGST @ 9%</th>
-            <th>CGST @ 9%</th>
-            <th>Total</th>
+            <th>Sl. No.</th>
+            <th>Description of Goods</th>
+            <th>HSN</th>
+            <th>Quantity</th>
+            <th>Taxable Value (₹)</th>
+            <th>SGST @ 9% (₹)</th>
+            <th>CGST @ 9% (₹)</th>
+            <th>Total (₹)</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="item, stat : ${invoice.items}">
-            <td th:text="${stat.index + 1}" style="text-align: center;"></td>
+            <td class="center" th:text="${stat.index + 1}"></td>
             <td th:text="${item.description}"></td>
-            <td th:text="${item.hsnCode}" style="text-align: center;"></td>
-            <td th:text="${item.quantity}" style="text-align: center;"></td>
-            <td th:text="${#numbers.formatDecimal(item.baseAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
-            <td th:text="${#numbers.formatDecimal(item.sgstAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
-            <td th:text="${#numbers.formatDecimal(item.cgstAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
-            <td th:text="${#numbers.formatDecimal(item.finalAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
+            <td class="center" th:text="${item.hsnCode}"></td>
+            <td class="center" th:text="${item.quantity}"></td>
+            <td class="amount" th:text="${@formatting.money(item.baseAmount)}"></td>
+            <td class="amount" th:text="${@formatting.money(item.sgstAmount)}"></td>
+            <td class="amount" th:text="${@formatting.money(item.cgstAmount)}"></td>
+            <td class="amount" th:text="${@formatting.money(item.finalAmount)}"></td>
         </tr>
         </tbody>
     </table>
 
-    <table class="totals-table">
-        <tr>
-            <th>Total Value of Goods</th>
-            <td th:text="${#numbers.formatDecimal(invoice.totalBaseAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        </tr>
-        <tr>
-            <th>Total GST (SGST + CGST)</th>
-            <td th:text="${#numbers.formatDecimal(invoice.totalTaxAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        </tr>
-        <tr>
-            <th>Less: Discount</th>
-            <td th:text="${#numbers.formatDecimal(invoice.discountAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        </tr>
-        <tr>
-            <th>Grand Total</th>
-            <td th:text="${#numbers.formatDecimal(invoice.totalAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        </tr>
-    </table>
-
-    <div class="declaration">
-        <strong>Declaration:</strong>
-        <p>We certify that the goods and services supplied are of the highest quality and the particulars given above are true and correct.</p>
+    <div class="totals-signature">
+        <table class="totals-table">
+            <tr>
+                <th>Total Taxable Value</th>
+                <td th:text="${@formatting.money(invoice.totalBaseAmount)}"></td>
+            </tr>
+            <tr>
+                <th>Add: SGST @ 9%</th>
+                <td th:text="${@formatting.money(invoice.totalSgstAmount)}"></td>
+            </tr>
+            <tr>
+                <th>Add: CGST @ 9%</th>
+                <td th:text="${@formatting.money(invoice.totalCgstAmount)}"></td>
+            </tr>
+            <tr>
+                <th>Less: Discount</th>
+                <td th:text="${@formatting.money(invoice.discountAmount)}"></td>
+            </tr>
+            <tr class="grand-total">
+                <th>Invoice Total</th>
+                <td th:text="${@formatting.money(invoice.totalAmount)}"></td>
+            </tr>
+        </table>
+        <div class="bank-declaration">
+            <table class="bank-table">
+                <caption>Bank Details</caption>
+                <tr>
+                    <th>Bank Name</th>
+                    <td>Kotak Mahindra Bank, Cuttack Branch</td>
+                </tr>
+                <tr>
+                    <th>Account Number</th>
+                    <td>6500159555</td>
+                </tr>
+                <tr>
+                    <th>IFSC</th>
+                    <td>KKBK0008788</td>
+                </tr>
+            </table>
+            <div class="declaration">
+                <strong>Declaration:</strong>
+                <p>We hereby certify that the particulars given above are true and correct and the goods supplied are in accordance with the order placed by the customer.</p>
+            </div>
+        </div>
     </div>
-
-    <table class="bank-table">
-        <caption>Bank Details</caption>
-        <tr>
-            <th>Bank Name</th>
-            <td>Kotak Mahindra Bank, Cuttack Branch</td>
-        </tr>
-        <tr>
-            <th>Account Number</th>
-            <td>6500159555</td>
-        </tr>
-        <tr>
-            <th>IFSC</th>
-            <td>KKBK0008788</td>
-        </tr>
-    </table>
 
     <div class="signature-row">
         <div class="signature-box">
-            <strong>Customer Signature</strong>
+            <span class="label">Customer Signature</span>
+            <span></span>
         </div>
         <div class="signature-box">
-            <strong>For Shankar Sales</strong>
-            <p>Authorised Signatory</p>
+            <span class="label">For Shankar Sales</span>
+            <span class="caption">Authorised Signatory</span>
         </div>
     </div>
 </div>
