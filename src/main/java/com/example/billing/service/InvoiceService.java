@@ -21,8 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 public class InvoiceService {
 
     private static final BigDecimal GST_RATE = new BigDecimal("0.18");
-    private static final BigDecimal HALF_GST_RATE = new BigDecimal("0.09");
     private static final BigDecimal ONE = BigDecimal.ONE;
+    private static final BigDecimal TWO = new BigDecimal("2");
 
     private final InvoiceRepository invoiceRepository;
     private final PdfService pdfService;
@@ -80,10 +80,10 @@ public class InvoiceService {
             BigDecimal quantity = new BigDecimal(quantityValue);
 
             BigDecimal totalFinalAmount = finalAmountPerUnit.multiply(quantity).setScale(2, RoundingMode.HALF_UP);
-            BigDecimal basePerUnit = finalAmountPerUnit.divide(ONE.add(GST_RATE), 2, RoundingMode.HALF_UP);
-            BigDecimal totalBaseAmount = basePerUnit.multiply(quantity).setScale(2, RoundingMode.HALF_UP);
-            BigDecimal sgst = totalBaseAmount.multiply(HALF_GST_RATE).setScale(2, RoundingMode.HALF_UP);
-            BigDecimal cgst = totalBaseAmount.multiply(HALF_GST_RATE).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal totalBaseAmount = totalFinalAmount.divide(ONE.add(GST_RATE), 2, RoundingMode.HALF_UP);
+            BigDecimal totalTaxAmount = totalFinalAmount.subtract(totalBaseAmount).setScale(2, RoundingMode.HALF_UP);
+            BigDecimal sgst = totalTaxAmount.divide(TWO, 2, RoundingMode.HALF_UP);
+            BigDecimal cgst = totalTaxAmount.subtract(sgst).setScale(2, RoundingMode.HALF_UP);
 
             item.setFinalAmount(totalFinalAmount);
             item.setBaseAmount(totalBaseAmount);

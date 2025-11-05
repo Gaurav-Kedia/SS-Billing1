@@ -1,0 +1,283 @@
+{
+  "info": {
+    "_postman_id": "f3eb2d9a-5f1a-4c5c-9c29-2d58b367bcc2",
+    "name": "Smart Sales Billing",
+    "description": "Collection that exercises the Smart Sales Billing Spring Boot application end-to-end.\n\n**Prerequisites**\n- Application running locally (e.g. `mvn spring-boot:run`).\n- H2 in-memory database is acceptable for testing.\n- Optional integrations (WhatsApp, printer) are mocked/log-only during automated tests.\n\nThe collection seeds form submissions with representative invoice data, stores the generated invoice identifier for follow-up requests, and validates responses with Postman test scripts.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Render invoice form",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            ""
+          ]
+        },
+        "description": "Loads the Thymeleaf data-entry form used by sales staff to capture a new invoice."
+      },
+      "response": [],
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Invoice form markup is returned', function () {",
+              "    pm.expect(pm.response.text()).to.include('<form');",
+              "    pm.expect(pm.response.text()).to.include('Invoice Details');",
+              "});"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "name": "Create invoice",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "const today = new Date().toISOString().slice(0, 10);",
+              "pm.variables.set('issueDate', today);",
+              "pm.variables.set('deliveryDate', today);",
+              "pm.environment.unset('invoiceId');"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "const html = pm.response.text();",
+              "pm.test('Success view rendered', function () {",
+              "    pm.expect(html).to.include('Invoice Generated Successfully');",
+              "});",
+              "",
+              "const idMatch = html.match(/\\/invoices\\/(\\d+)\\/pdf/);",
+              "pm.test('Invoice identifier captured for chaining', function () {",
+              "    pm.expect(idMatch).to.not.be.null;",
+              "});",
+              "if (idMatch) {",
+              "    pm.environment.set('invoiceId', idMatch[1]);",
+              "}",
+              "",
+              "const billMatch = html.match(/badge bg-primary fs-6\">([^<]+)/);",
+              "if (billMatch) {",
+              "    pm.environment.set('billNumber', billMatch[1]);",
+              "}",
+              "",
+              "pm.test('GST totals are present', function () {",
+              "    pm.expect(html).to.include('Total GST (18%)');",
+              "    pm.expect(html).to.include('Grand Total');",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/x-www-form-urlencoded"
+          }
+        ],
+        "body": {
+          "mode": "urlencoded",
+          "urlencoded": [
+            {
+              "key": "customerName",
+              "value": "Ramesh Kumar",
+              "description": "Billed customer name",
+              "type": "text"
+            },
+            {
+              "key": "customerAddress",
+              "value": "102 MG Road, Bhubaneswar, Odisha",
+              "description": "Mailing address for the customer",
+              "type": "text"
+            },
+            {
+              "key": "customerPhone",
+              "value": "+919876543210",
+              "description": "Customer phone number for WhatsApp notification",
+              "type": "text"
+            },
+            {
+              "key": "customerGstin",
+              "value": "21ABCDE1234F1Z5",
+              "description": "GSTIN or UID if applicable",
+              "type": "text"
+            },
+            {
+              "key": "issueDate",
+              "value": "{{issueDate}}",
+              "description": "Invoice issue date (ISO format)",
+              "type": "text"
+            },
+            {
+              "key": "deliveryDate",
+              "value": "{{deliveryDate}}",
+              "description": "Delivery/dispatch date (ISO format)",
+              "type": "text"
+            },
+            {
+              "key": "vehicleNumber",
+              "value": "OD02AB1234",
+              "description": "Optional vehicle number carrying the goods",
+              "type": "text"
+            },
+            {
+              "key": "placeOfSupply",
+              "value": "Bhubaneswar",
+              "description": "Optional place of supply",
+              "type": "text"
+            },
+            {
+              "key": "discountAmount",
+              "value": "10.00",
+              "description": "Invoice-level discount applied to the final total",
+              "type": "text"
+            },
+            {
+              "key": "items[0].description",
+              "value": "LED Television 32 inch",
+              "description": "Line item description",
+              "type": "text"
+            },
+            {
+              "key": "items[0].hsnCode",
+              "value": "8528",
+              "description": "HSN code from the predefined catalogue",
+              "type": "text"
+            },
+            {
+              "key": "items[0].quantity",
+              "value": "1",
+              "description": "Quantity for the first line item",
+              "type": "text"
+            },
+            {
+              "key": "items[0].finalAmount",
+              "value": "100.00",
+              "description": "Final amount per unit (inclusive of GST)",
+              "type": "text"
+            },
+            {
+              "key": "items[1].description",
+              "value": "Bluetooth Speaker",
+              "description": "Second line item description",
+              "type": "text"
+            },
+            {
+              "key": "items[1].hsnCode",
+              "value": "8518",
+              "description": "HSN code for the second item",
+              "type": "text"
+            },
+            {
+              "key": "items[1].quantity",
+              "value": "2",
+              "description": "Quantity for the second item",
+              "type": "text"
+            },
+            {
+              "key": "items[1].finalAmount",
+              "value": "50.00",
+              "description": "Final amount per unit (inclusive of GST)",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/invoices",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "invoices"
+          ]
+        },
+        "description": "Submits a new invoice using the same form fields as the web UI. Automatically captures the resulting invoice identifier and bill number for chained requests."
+      },
+      "response": []
+    },
+    {
+      "name": "Download invoice PDF",
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "if (!pm.environment.get('invoiceId')) {",
+              "    throw new Error('invoiceId is not set. Run \"Create invoice\" first.');",
+              "}"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test('Status code is 200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "pm.test('Response is a PDF document', function () {",
+              "    pm.expect(pm.response.headers.get('Content-Type')).to.contain('application/pdf');",
+              "});",
+              "",
+              "pm.test('PDF body is not empty', function () {",
+              "    pm.expect(pm.response.stream.length).to.be.greaterThan(0);",
+              "});"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/invoices/{{invoiceId}}/pdf",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "invoices",
+            "{{invoiceId}}",
+            "pdf"
+          ]
+        },
+        "description": "Downloads the generated invoice PDF for the invoice created in the previous request."
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "default"
+    }
+  ]
+}

@@ -158,6 +158,22 @@ The runnable JAR will be emitted at `target/billing-0.0.1-SNAPSHOT.jar`.
 5. **Printing failures** – Confirm the JVM runs in a desktop environment. `PrintService` logs when printing is skipped or an error occurs.
 6. **Database integrity** – For missing bill numbers, ensure the database sequence is intact; resetting the table or switching to a robust RDBMS may be necessary.
 
+---
+
+## 8. API regression testing with Postman
+
+Automated smoke tests for the three primary endpoints ship with the repository under `postman/`:
+
+- `postman/SmartSalesBilling.postman_collection.json` – Covers the form render (`GET /`), invoice submission (`POST /invoices`), and PDF download (`GET /invoices/{id}/pdf`). Pre-request scripts seed required form fields and chain the generated invoice identifier, while test scripts assert HTML/PDF responses and persist the bill number.
+- `postman/SmartSalesBilling.postman_environment.json` – Provides the `baseUrl` (default `http://localhost:8080`) plus mutable `invoiceId`/`billNumber` variables captured during the run.
+
+To execute:
+
+1. Import the collection and environment into Postman (or Newman).
+2. Start the Spring Boot application locally (`mvn spring-boot:run`).
+3. Select the **Smart Sales Billing Local** environment.
+4. Run the collection. All tests should pass, confirming the end-to-end flow from HTML form submission through PDF generation.
+
 When issues persist, capture thread dumps (`jcmd <pid> Thread.print`) and heap stats (`jcmd <pid> GC.heap_info`) to provide additional diagnostics.
 
 ---
