@@ -11,12 +11,12 @@
 <body>
 <div class="container py-4">
     <h1 class="text-center mb-4">Shankar Sales - Tax Invoice</h1>
-    <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
-        <ul class="mb-0">
-            <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
-        </ul>
-    </div>
     <form th:action="@{/invoices}" method="post" th:object="${form}" class="needs-validation" novalidate>
+        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
+            <ul class="mb-0">
+                <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+            </ul>
+        </div>
         <div class="row g-3">
             <div class="col-md-6">
                 <label class="form-label">Customer Name *</label>

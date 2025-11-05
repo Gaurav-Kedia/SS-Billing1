@@ -1,168 +1,274 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <style>
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 11px;
             color: #000;
-            padding: 20px;
+            padding: 18px;
         }
 
-        .header {
+        .invoice-wrapper {
+            border: 2px solid #0a2a5c;
+            padding: 12px 16px;
+        }
+
+        .invoice-header {
             text-align: center;
-            margin-bottom: 10px;
+            border-bottom: 2px solid #0a2a5c;
+            padding-bottom: 6px;
+            margin-bottom: 6px;
         }
 
-        .header h1 {
-            margin: 0;
-            font-size: 20px;
+        .invoice-header .title {
+            font-size: 12px;
+            font-weight: bold;
             letter-spacing: 2px;
+            margin-bottom: 4px;
         }
 
-        .header p {
+        .invoice-header h1 {
+            font-size: 26px;
             margin: 2px 0;
+            letter-spacing: 3px;
         }
 
-        .info-table, .items-table, .totals-table {
+        .invoice-header p {
+            margin: 1px 0;
+        }
+
+        .invoice-subheader {
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #0a2a5c;
+            padding-bottom: 4px;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .summary-table,
+        .items-table,
+        .totals-table,
+        .bank-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
-        .info-table td, .info-table th,
-        .items-table td, .items-table th,
-        .totals-table td, .totals-table th {
-            border: 1px solid #000;
-            padding: 6px;
+        .summary-table th,
+        .summary-table td,
+        .items-table th,
+        .items-table td,
+        .totals-table th,
+        .totals-table td,
+        .bank-table th,
+        .bank-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
         }
 
-        .items-table th {
-            background-color: #f2f2f2;
+        .summary-table th {
+            width: 18%;
+        }
+
+        .summary-table td {
+            width: 32%;
+        }
+
+        .items-table thead th {
+            text-align: center;
+            font-size: 10px;
+        }
+
+        .items-table tbody td {
+            vertical-align: top;
+        }
+
+        .items-table .amount-header {
+            background-color: #f4f6fb;
+        }
+
+        .totals-table {
+            margin-top: 12px;
+        }
+
+        .totals-table th {
+            width: 70%;
+            text-align: right;
         }
 
         .totals-table td {
             text-align: right;
+            font-weight: bold;
         }
 
-        .signature {
-            margin-top: 30px;
+        .declaration {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            min-height: 70px;
+            margin-top: 12px;
+        }
+
+        .signature-row {
+            margin-top: 20px;
             display: flex;
             justify-content: space-between;
         }
 
-        .signature div {
+        .signature-box {
             width: 48%;
-            border: 1px solid #000;
-            padding: 20px;
-            height: 100px;
+            border: 1px solid #0a2a5c;
+            height: 90px;
+            padding: 6px 8px;
         }
 
-        .section-title {
+        .signature-box p {
+            margin-top: 54px;
+            text-align: center;
             font-weight: bold;
-            background-color: #f2f2f2;
-            padding: 4px 6px;
-            border: 1px solid #000;
+        }
+
+        .bank-table th {
+            width: 30%;
+        }
+
+        .bank-table caption {
+            caption-side: top;
+            font-weight: bold;
+            margin-bottom: 4px;
+            text-align: left;
         }
     </style>
 </head>
 <body>
-<div class="header">
-    <p><strong>GSTIN:</strong> 21AABCS2061K1ZV | <strong>State:</strong> ODISHA (Code 21)</p>
-    <h1>SHANKAR SALES</h1>
-    <p>Hing House for Doors &amp; PVC/FRP Doors &amp; Aluminium &amp; Windows</p>
-    <p>G-6, R. B. Rania Complex, 6th Chouk, Buxibazar, Cuttack - 753001</p>
-    <p>Phone: +91 9437329641 | Email: shankarsales@example.com</p>
-</div>
-
-<table class="info-table">
-    <tr>
-        <th>Bill No.</th>
-        <td th:text="${invoice.billNumber}"></td>
-        <th>Issue Date</th>
-        <td th:text="${invoice.issueDate}"></td>
-    </tr>
-    <tr>
-        <th>Customer Name</th>
-        <td th:text="${invoice.customerName}"></td>
-        <th>Delivery Date</th>
-        <td th:text="${invoice.deliveryDate}"></td>
-    </tr>
-    <tr>
-        <th>Customer Address</th>
-        <td th:text="${invoice.customerAddress}"></td>
-        <th>Vehicle No.</th>
-        <td th:text="${invoice.vehicleNumber}"></td>
-    </tr>
-    <tr>
-        <th>Customer Phone</th>
-        <td th:text="${invoice.customerPhone}"></td>
-        <th>Place of Supply</th>
-        <td th:text="${invoice.placeOfSupply}"></td>
-    </tr>
-    <tr>
-        <th>GSTIN / UID</th>
-        <td th:text="${invoice.customerGstin}"></td>
-        <th>State &amp; Code</th>
-        <td>ODISHA - 21</td>
-    </tr>
-</table>
-
-<div class="section-title">Line Items</div>
-<table class="items-table">
-    <thead>
-    <tr>
-        <th>SL. No</th>
-        <th>Description</th>
-        <th>HSN Code</th>
-        <th>Quantity</th>
-        <th>Value of Goods (₹)</th>
-        <th>SGST 9% (₹)</th>
-        <th>CGST 9% (₹)</th>
-        <th>Final Amount (₹)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item, stat : ${invoice.items}">
-        <td th:text="${stat.index + 1}"></td>
-        <td th:text="${item.description}"></td>
-        <td th:text="${item.hsnCode}"></td>
-        <td th:text="${item.quantity}"></td>
-        <td th:text="${#numbers.formatDecimal(item.baseAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        <td th:text="${#numbers.formatDecimal(item.sgstAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        <td th:text="${#numbers.formatDecimal(item.cgstAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        <td th:text="${#numbers.formatDecimal(item.finalAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    </tbody>
-</table>
-
-<table class="totals-table">
-    <tr>
-        <th>Total Value of Goods</th>
-        <td th:text="${#numbers.formatDecimal(invoice.totalBaseAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    <tr>
-        <th>Total GST (18%)</th>
-        <td th:text="${#numbers.formatDecimal(invoice.totalTaxAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    <tr>
-        <th>Discount</th>
-        <td th:text="${#numbers.formatDecimal(invoice.discountAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    <tr>
-        <th>Grand Total</th>
-        <td th:text="${#numbers.formatDecimal(invoice.totalAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-</table>
-
-<div class="signature">
-    <div>
-        <strong>Customer Signature</strong>
+<div class="invoice-wrapper">
+    <div class="invoice-header">
+        <div class="title">TAX INVOICE</div>
+        <h1>SHANKAR SALES</h1>
+        <p>Hing House for Doors &amp; PVC/FRP Doors &amp; Aluminium &amp; Windows</p>
+        <p>G-6, R. B. Rania Complex, 6th Chouk, Buxibazar, Cuttack - 753001</p>
+        <p>Phone: +91 9437329641</p>
     </div>
-    <div>
-        <strong>For Shankar Sales</strong>
-        <p style="margin-top: 40px;">Authorised Signatory</p>
+
+    <div class="invoice-subheader">
+        <span>GSTIN: 21AABCS2061K1ZV</span>
+        <span>STATE: ODISHA</span>
+        <span>CODE: 21</span>
+    </div>
+
+    <table class="summary-table">
+        <tr>
+            <th>Bill No.</th>
+            <td th:text="${invoice.billNumber}"></td>
+            <th>Date of Issue</th>
+            <td th:text="${invoice.issueDate}"></td>
+            <th>Date of Delivery</th>
+            <td th:text="${invoice.deliveryDate}"></td>
+        </tr>
+        <tr>
+            <th>Customer Name</th>
+            <td th:text="${invoice.customerName}"></td>
+            <th>Customer GSTIN / UID</th>
+            <td th:text="${invoice.customerGstin}"></td>
+            <th>Vehicle No.</th>
+            <td th:text="${invoice.vehicleNumber}"></td>
+        </tr>
+        <tr>
+            <th>Address</th>
+            <td colspan="3" th:text="${invoice.customerAddress}"></td>
+            <th>Place of Supply</th>
+            <td th:text="${invoice.placeOfSupply}"></td>
+        </tr>
+        <tr>
+            <th>Contact No.</th>
+            <td th:text="${invoice.customerPhone}"></td>
+            <th>State</th>
+            <td>ODISHA</td>
+            <th>State Code</th>
+            <td>21</td>
+        </tr>
+    </table>
+
+    <table class="items-table">
+        <thead>
+        <tr>
+            <th rowspan="2">Sl. No.</th>
+            <th rowspan="2">Description</th>
+            <th rowspan="2">HSN</th>
+            <th rowspan="2">Qty</th>
+            <th colspan="4" class="amount-header">Amount (₹)</th>
+        </tr>
+        <tr>
+            <th>Value of Goods</th>
+            <th>SGST @ 9%</th>
+            <th>CGST @ 9%</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item, stat : ${invoice.items}">
+            <td th:text="${stat.index + 1}" style="text-align: center;"></td>
+            <td th:text="${item.description}"></td>
+            <td th:text="${item.hsnCode}" style="text-align: center;"></td>
+            <td th:text="${item.quantity}" style="text-align: center;"></td>
+            <td th:text="${#numbers.formatDecimal(item.baseAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
+            <td th:text="${#numbers.formatDecimal(item.sgstAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
+            <td th:text="${#numbers.formatDecimal(item.cgstAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
+            <td th:text="${#numbers.formatDecimal(item.finalAmount, 2, 'POINT', 2, 'POINT')}" style="text-align: right;"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="totals-table">
+        <tr>
+            <th>Total Value of Goods</th>
+            <td th:text="${#numbers.formatDecimal(invoice.totalBaseAmount, 2, 'POINT', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <th>Total GST (SGST + CGST)</th>
+            <td th:text="${#numbers.formatDecimal(invoice.totalTaxAmount, 2, 'POINT', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <th>Less: Discount</th>
+            <td th:text="${#numbers.formatDecimal(invoice.discountAmount, 2, 'POINT', 2, 'POINT')}"></td>
+        </tr>
+        <tr>
+            <th>Grand Total</th>
+            <td th:text="${#numbers.formatDecimal(invoice.totalAmount, 2, 'POINT', 2, 'POINT')}"></td>
+        </tr>
+    </table>
+
+    <div class="declaration">
+        <strong>Declaration:</strong>
+        <p>We certify that the goods and services supplied are of the highest quality and the particulars given above are true and correct.</p>
+    </div>
+
+    <table class="bank-table">
+        <caption>Bank Details</caption>
+        <tr>
+            <th>Bank Name</th>
+            <td>Kotak Mahindra Bank, Cuttack Branch</td>
+        </tr>
+        <tr>
+            <th>Account Number</th>
+            <td>6500159555</td>
+        </tr>
+        <tr>
+            <th>IFSC</th>
+            <td>KKBK0008788</td>
+        </tr>
+    </table>
+
+    <div class="signature-row">
+        <div class="signature-box">
+            <strong>Customer Signature</strong>
+        </div>
+        <div class="signature-box">
+            <strong>For Shankar Sales</strong>
+            <p>Authorised Signatory</p>
+        </div>
     </div>
 </div>
 </body>
