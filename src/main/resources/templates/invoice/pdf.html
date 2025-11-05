@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+            font-size: 11px;
+            color: #000;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 20px;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            margin: 2px 0;
+        }
+
+        .info-table, .items-table, .totals-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        .info-table td, .info-table th,
+        .items-table td, .items-table th,
+        .totals-table td, .totals-table th {
+            border: 1px solid #000;
+            padding: 6px;
+        }
+
+        .items-table th {
+            background-color: #f2f2f2;
+        }
+
+        .totals-table td {
+            text-align: right;
+        }
+
+        .signature {
+            margin-top: 30px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .signature div {
+            width: 48%;
+            border: 1px solid #000;
+            padding: 20px;
+            height: 100px;
+        }
+
+        .section-title {
+            font-weight: bold;
+            background-color: #f2f2f2;
+            padding: 4px 6px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<div class="header">
+    <p><strong>GSTIN:</strong> 21AABCS2061K1ZV | <strong>State:</strong> ODISHA (Code 21)</p>
+    <h1>SHANKAR SALES</h1>
+    <p>Hing House for Doors &amp; PVC/FRP Doors &amp; Aluminium &amp; Windows</p>
+    <p>G-6, R. B. Rania Complex, 6th Chouk, Buxibazar, Cuttack - 753001</p>
+    <p>Phone: +91 9437329641 | Email: shankarsales@example.com</p>
+</div>
+
+<table class="info-table">
+    <tr>
+        <th>Bill No.</th>
+        <td th:text="${invoice.billNumber}"></td>
+        <th>Issue Date</th>
+        <td th:text="${invoice.issueDate}"></td>
+    </tr>
+    <tr>
+        <th>Customer Name</th>
+        <td th:text="${invoice.customerName}"></td>
+        <th>Delivery Date</th>
+        <td th:text="${invoice.deliveryDate}"></td>
+    </tr>
+    <tr>
+        <th>Customer Address</th>
+        <td th:text="${invoice.customerAddress}"></td>
+        <th>Vehicle No.</th>
+        <td th:text="${invoice.vehicleNumber}"></td>
+    </tr>
+    <tr>
+        <th>Customer Phone</th>
+        <td th:text="${invoice.customerPhone}"></td>
+        <th>Place of Supply</th>
+        <td th:text="${invoice.placeOfSupply}"></td>
+    </tr>
+    <tr>
+        <th>GSTIN / UID</th>
+        <td th:text="${invoice.customerGstin}"></td>
+        <th>State &amp; Code</th>
+        <td>ODISHA - 21</td>
+    </tr>
+</table>
+
+<div class="section-title">Line Items</div>
+<table class="items-table">
+    <thead>
+    <tr>
+        <th>SL. No</th>
+        <th>Description</th>
+        <th>HSN Code</th>
+        <th>Quantity</th>
+        <th>Value of Goods (₹)</th>
+        <th>SGST 9% (₹)</th>
+        <th>CGST 9% (₹)</th>
+        <th>Final Amount (₹)</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="item, stat : ${invoice.items}">
+        <td th:text="${stat.index + 1}"></td>
+        <td th:text="${item.description}"></td>
+        <td th:text="${item.hsnCode}"></td>
+        <td th:text="${item.quantity}"></td>
+        <td th:text="${#numbers.formatDecimal(item.baseAmount, 2, 'POINT', 2, 'POINT')}"></td>
+        <td th:text="${#numbers.formatDecimal(item.sgstAmount, 2, 'POINT', 2, 'POINT')}"></td>
+        <td th:text="${#numbers.formatDecimal(item.cgstAmount, 2, 'POINT', 2, 'POINT')}"></td>
+        <td th:text="${#numbers.formatDecimal(item.finalAmount, 2, 'POINT', 2, 'POINT')}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<table class="totals-table">
+    <tr>
+        <th>Total Value of Goods</th>
+        <td th:text="${#numbers.formatDecimal(invoice.totalBaseAmount, 2, 'POINT', 2, 'POINT')}"></td>
+    </tr>
+    <tr>
+        <th>Total GST (18%)</th>
+        <td th:text="${#numbers.formatDecimal(invoice.totalTaxAmount, 2, 'POINT', 2, 'POINT')}"></td>
+    </tr>
+    <tr>
+        <th>Discount</th>
+        <td th:text="${#numbers.formatDecimal(invoice.discountAmount, 2, 'POINT', 2, 'POINT')}"></td>
+    </tr>
+    <tr>
+        <th>Grand Total</th>
+        <td th:text="${#numbers.formatDecimal(invoice.totalAmount, 2, 'POINT', 2, 'POINT')}"></td>
+    </tr>
+</table>
+
+<div class="signature">
+    <div>
+        <strong>Customer Signature</strong>
+    </div>
+    <div>
+        <strong>For Shankar Sales</strong>
+        <p style="margin-top: 40px;">Authorised Signatory</p>
+    </div>
+</div>
+</body>
+</html>

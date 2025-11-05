@@ -1,0 +1,26 @@
+body {
+    background-color: #f4f6f9;
+}
+
+h1 {
+    font-size: 1.75rem;
+}
+
+.table thead th {
+    white-space: nowrap;
+}
+
+#itemsTable td input {
+    min-width: 120px;
+}
+
+@media (max-width: 768px) {
+    #itemsTable td input,
+    #itemsTable td select {
+        min-width: 100px;
+    }
+
+    .table-responsive {
+        overflow-x: auto;
+    }
+}
