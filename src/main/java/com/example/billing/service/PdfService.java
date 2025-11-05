@@ -1,6 +1,7 @@
 package com.example.billing.service;
 
 import com.example.billing.invoice.Invoice;
+import com.example.billing.web.thymeleaf.FormatFunctions;
 import com.openhtmltopdf.pdfboxout.PdfRendererBuilder;
 import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
@@ -16,15 +17,18 @@ public class PdfService {
 
     private static final Logger log = LoggerFactory.getLogger(PdfService.class);
     private final TemplateEngine templateEngine;
+    private final FormatFunctions formatFunctions;
 
-    public PdfService(TemplateEngine templateEngine) {
+    public PdfService(TemplateEngine templateEngine, FormatFunctions formatFunctions) {
         this.templateEngine = templateEngine;
+        this.formatFunctions = formatFunctions;
     }
 
     public byte[] renderInvoicePdf(Invoice invoice) {
         try {
             Context context = new Context();
             context.setVariable("invoice", invoice);
+            context.setVariable("formatting", formatFunctions);
             Map<String, Object> totals = new HashMap<>();
             totals.put("sgstRate", "9%");
             totals.put("cgstRate", "9%");

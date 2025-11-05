@@ -1,169 +1,401 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'DejaVu Sans', sans-serif;
             font-size: 11px;
-            color: #000;
-            padding: 20px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 10px;
-        }
-
-        .header h1 {
+            color: #111;
             margin: 0;
-            font-size: 20px;
-            letter-spacing: 2px;
+            padding: 16px;
         }
 
-        .header p {
-            margin: 2px 0;
+        .sheet {
+            border: 2px solid #0a2a5c;
+            padding: 14px 16px;
         }
 
-        .info-table, .items-table, .totals-table {
+        .header-table,
+        .party-table,
+        .items-table,
+        .summary-table,
+        .tax-summary,
+        .footer-table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 12px;
         }
 
-        .info-table td, .info-table th,
-        .items-table td, .items-table th,
-        .totals-table td, .totals-table th {
-            border: 1px solid #000;
-            padding: 6px;
+        .header-table {
+            border: 1px solid #0a2a5c;
         }
 
-        .items-table th {
-            background-color: #f2f2f2;
+        .header-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            vertical-align: top;
         }
 
-        .totals-table td {
+        .company-name {
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .company-tagline {
+            font-size: 11px;
+            margin-top: 2px;
+        }
+
+        .invoice-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #0a2a5c;
+        }
+
+        .meta-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .meta-table th,
+        .meta-table td {
+            font-size: 10px;
+            padding: 3px 4px;
+            text-align: left;
+        }
+
+        .meta-table th {
+            width: 52%;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #0a2a5c;
+        }
+
+        .party-table {
+            border: 1px solid #0a2a5c;
+            margin-top: 10px;
+        }
+
+        .party-table th,
+        .party-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            vertical-align: top;
+        }
+
+        .party-table th {
+            background: #dbe3ff;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+        }
+
+        .label {
+            font-weight: 600;
+        }
+
+        .items-table {
+            margin-top: 12px;
+            border: 1px solid #0a2a5c;
+        }
+
+        .items-table th,
+        .items-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 6px;
+            font-size: 10px;
+        }
+
+        .items-table thead th {
+            background: #cdd8f8;
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+        .items-table td.center {
+            text-align: center;
+        }
+
+        .items-table td.amount {
             text-align: right;
+            font-weight: 600;
         }
 
-        .signature {
-            margin-top: 30px;
+        .summary-wrapper {
+            display: table;
+            width: 100%;
+            margin-top: 12px;
+        }
+
+        .summary-table {
+            border: 1px solid #0a2a5c;
+            display: table-cell;
+            width: 52%;
+        }
+
+        .summary-table th,
+        .summary-table td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            font-size: 10px;
+        }
+
+        .summary-table th {
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            background: #eef2ff;
+            text-align: left;
+        }
+
+        .summary-table td {
+            text-align: right;
+            font-weight: 600;
+        }
+
+        .summary-table tr.grand-total th,
+        .summary-table tr.grand-total td {
+            font-size: 11px;
+            background: #d0dbff;
+        }
+
+        .tax-summary {
+            display: table-cell;
+            width: 48%;
+            border: 1px solid #0a2a5c;
+            margin-left: 10px;
+        }
+
+        .tax-summary th,
+        .tax-summary td {
+            border: 1px solid #0a2a5c;
+            padding: 6px 8px;
+            font-size: 10px;
+        }
+
+        .tax-summary th {
+            background: #eef2ff;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            text-align: left;
+        }
+
+        .footer-table {
+            margin-top: 14px;
+            border: 1px solid #0a2a5c;
+        }
+
+        .footer-table th,
+        .footer-table td {
+            border: 1px solid #0a2a5c;
+            padding: 8px 10px;
+            vertical-align: top;
+            font-size: 10px;
+        }
+
+        .footer-table th {
+            background: #dbe3ff;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            text-align: left;
+        }
+
+        .signature-block {
+            height: 90px;
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
         }
 
-        .signature div {
-            width: 48%;
-            border: 1px solid #000;
-            padding: 20px;
-            height: 100px;
+        .signature-caption {
+            text-align: right;
+            font-weight: 600;
+            text-transform: uppercase;
         }
 
-        .section-title {
-            font-weight: bold;
-            background-color: #f2f2f2;
-            padding: 4px 6px;
-            border: 1px solid #000;
+        .note {
+            margin-top: 8px;
+            font-size: 9px;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-<div class="header">
-    <p><strong>GSTIN:</strong> 21AABCS2061K1ZV | <strong>State:</strong> ODISHA (Code 21)</p>
-    <h1>SHANKAR SALES</h1>
-    <p>Hing House for Doors &amp; PVC/FRP Doors &amp; Aluminium &amp; Windows</p>
-    <p>G-6, R. B. Rania Complex, 6th Chouk, Buxibazar, Cuttack - 753001</p>
-    <p>Phone: +91 9437329641 | Email: shankarsales@example.com</p>
-</div>
+<div class="sheet">
+    <table class="header-table">
+        <tr>
+            <td rowspan="2" style="width: 45%;">
+                <div class="company-name">Shankar Sales</div>
+                <div class="company-tagline">Hing House for Doors &amp; PVC/FRP Doors &amp; Aluminium Windows</div>
+                <div>G-6, R. B. Rania Complex, 6th Chouk, Buxibazar, Cuttack - 753001</div>
+                <div><span class="label">Phone:</span> +91 9437329641</div>
+                <div><span class="label">Email:</span> shankarsales.ctc@gmail.com</div>
+                <div><span class="label">GSTIN:</span> 21AABCS2061K1ZV</div>
+            </td>
+            <td style="width: 20%; text-align: center;">
+                <div class="invoice-title">Tax Invoice</div>
+            </td>
+            <td style="width: 35%;">
+                <table class="meta-table">
+                    <tr>
+                        <th>Bill No.</th>
+                        <td th:text="${invoice.billNumber}"></td>
+                    </tr>
+                    <tr>
+                        <th>Date of Issue</th>
+                        <td th:text="${invoice.issueDate != null ? #temporals.format(invoice.issueDate, 'dd/MM/yyyy') : #temporals.format(T(java.time.LocalDate).now(), 'dd/MM/yyyy')}"></td>
+                    </tr>
+                    <tr>
+                        <th>Date of Delivery</th>
+                        <td th:text="${invoice.deliveryDate != null ? #temporals.format(invoice.deliveryDate, 'dd/MM/yyyy') : #temporals.format(T(java.time.LocalDate).now(), 'dd/MM/yyyy')}"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <table class="meta-table">
+                    <tr>
+                        <th>Vehicle No.</th>
+                        <td th:text="${invoice.vehicleNumber}"></td>
+                        <th>Place of Supply</th>
+                        <td th:text="${invoice.placeOfSupply}"></td>
+                    </tr>
+                    <tr>
+                        <th>State</th>
+                        <td>ODISHA</td>
+                        <th>State Code</th>
+                        <td>21</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
 
-<table class="info-table">
-    <tr>
-        <th>Bill No.</th>
-        <td th:text="${invoice.billNumber}"></td>
-        <th>Issue Date</th>
-        <td th:text="${invoice.issueDate}"></td>
-    </tr>
-    <tr>
-        <th>Customer Name</th>
-        <td th:text="${invoice.customerName}"></td>
-        <th>Delivery Date</th>
-        <td th:text="${invoice.deliveryDate}"></td>
-    </tr>
-    <tr>
-        <th>Customer Address</th>
-        <td th:text="${invoice.customerAddress}"></td>
-        <th>Vehicle No.</th>
-        <td th:text="${invoice.vehicleNumber}"></td>
-    </tr>
-    <tr>
-        <th>Customer Phone</th>
-        <td th:text="${invoice.customerPhone}"></td>
-        <th>Place of Supply</th>
-        <td th:text="${invoice.placeOfSupply}"></td>
-    </tr>
-    <tr>
-        <th>GSTIN / UID</th>
-        <td th:text="${invoice.customerGstin}"></td>
-        <th>State &amp; Code</th>
-        <td>ODISHA - 21</td>
-    </tr>
-</table>
+    <table class="party-table">
+        <tr>
+            <th style="width: 50%;">Buyer Details</th>
+            <th style="width: 50%;">Consignee Details</th>
+        </tr>
+        <tr>
+            <td>
+                <div><span class="label">Name:</span> <span th:text="${invoice.customerName}"></span></div>
+                <div><span class="label">Address:</span> <span th:text="${invoice.customerAddress}"></span></div>
+                <div><span class="label">Contact:</span> <span th:text="${invoice.customerPhone}"></span></div>
+                <div><span class="label">GSTIN / UID:</span> <span th:text="${invoice.customerGstin}"></span></div>
+            </td>
+            <td>
+                <div><span class="label">Name:</span> <span th:text="${invoice.customerName}"></span></div>
+                <div><span class="label">Address:</span> <span th:text="${invoice.customerAddress}"></span></div>
+                <div><span class="label">State &amp; Code:</span> ODISHA (21)</div>
+                <div><span class="label">Place of Supply:</span> <span th:text="${invoice.placeOfSupply}"></span></div>
+            </td>
+        </tr>
+    </table>
 
-<div class="section-title">Line Items</div>
-<table class="items-table">
-    <thead>
-    <tr>
-        <th>SL. No</th>
-        <th>Description</th>
-        <th>HSN Code</th>
-        <th>Quantity</th>
-        <th>Value of Goods (₹)</th>
-        <th>SGST 9% (₹)</th>
-        <th>CGST 9% (₹)</th>
-        <th>Final Amount (₹)</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="item, stat : ${invoice.items}">
-        <td th:text="${stat.index + 1}"></td>
-        <td th:text="${item.description}"></td>
-        <td th:text="${item.hsnCode}"></td>
-        <td th:text="${item.quantity}"></td>
-        <td th:text="${#numbers.formatDecimal(item.baseAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        <td th:text="${#numbers.formatDecimal(item.sgstAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        <td th:text="${#numbers.formatDecimal(item.cgstAmount, 2, 'POINT', 2, 'POINT')}"></td>
-        <td th:text="${#numbers.formatDecimal(item.finalAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    </tbody>
-</table>
+    <table class="items-table">
+        <thead>
+        <tr>
+            <th style="width: 6%;">Sl. No.</th>
+            <th style="width: 32%;">Description of Goods</th>
+            <th style="width: 10%;">HSN</th>
+            <th style="width: 10%;">Quantity</th>
+            <th style="width: 14%;">Taxable Value (₹)</th>
+            <th style="width: 14%;">SGST @ 9% (₹)</th>
+            <th style="width: 14%;">CGST @ 9% (₹)</th>
+            <th style="width: 14%;">Total (₹)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="item, stat : ${invoice.items}">
+            <td class="center" th:text="${stat.index + 1}"></td>
+            <td th:text="${item.description}"></td>
+            <td class="center" th:text="${item.hsnCode}"></td>
+            <td class="center" th:text="${item.quantity}"></td>
+            <td class="amount" th:text="${formatting.money(item.baseAmount)}"></td>
+            <td class="amount" th:text="${formatting.money(item.sgstAmount)}"></td>
+            <td class="amount" th:text="${formatting.money(item.cgstAmount)}"></td>
+            <td class="amount" th:text="${formatting.money(item.finalAmount)}"></td>
+        </tr>
+        <tr th:if="${invoice.items.isEmpty()}">
+            <td colspan="8" style="text-align: center; padding: 14px 0;">No items added.</td>
+        </tr>
+        </tbody>
+    </table>
 
-<table class="totals-table">
-    <tr>
-        <th>Total Value of Goods</th>
-        <td th:text="${#numbers.formatDecimal(invoice.totalBaseAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    <tr>
-        <th>Total GST (18%)</th>
-        <td th:text="${#numbers.formatDecimal(invoice.totalTaxAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    <tr>
-        <th>Discount</th>
-        <td th:text="${#numbers.formatDecimal(invoice.discountAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-    <tr>
-        <th>Grand Total</th>
-        <td th:text="${#numbers.formatDecimal(invoice.totalAmount, 2, 'POINT', 2, 'POINT')}"></td>
-    </tr>
-</table>
-
-<div class="signature">
-    <div>
-        <strong>Customer Signature</strong>
+    <div class="summary-wrapper">
+        <table class="summary-table">
+            <tr>
+                <th>Total Taxable Value</th>
+                <td th:text="${formatting.money(invoice.totalBaseAmount)}"></td>
+            </tr>
+            <tr>
+                <th>Add: SGST @ 9%</th>
+                <td th:text="${formatting.money(invoice.totalSgstAmount)}"></td>
+            </tr>
+            <tr>
+                <th>Add: CGST @ 9%</th>
+                <td th:text="${formatting.money(invoice.totalCgstAmount)}"></td>
+            </tr>
+            <tr th:if="${invoice.discountAmount != null && invoice.discountAmount.compareTo(T(java.math.BigDecimal).ZERO) > 0}">
+                <th>Less: Discount</th>
+                <td th:text="${formatting.money(invoice.discountAmount)}"></td>
+            </tr>
+            <tr class="grand-total">
+                <th>Invoice Total</th>
+                <td th:text="${formatting.money(invoice.totalAmount)}"></td>
+            </tr>
+        </table>
+        <table class="tax-summary">
+            <tr>
+                <th colspan="2">Tax Summary</th>
+            </tr>
+            <tr>
+                <td>SGST @ 9%</td>
+                <td style="text-align: right;" th:text="${formatting.money(invoice.totalSgstAmount)}"></td>
+            </tr>
+            <tr>
+                <td>CGST @ 9%</td>
+                <td style="text-align: right;" th:text="${formatting.money(invoice.totalCgstAmount)}"></td>
+            </tr>
+            <tr>
+                <td>Total GST @ 18%</td>
+                <td style="text-align: right;" th:text="${formatting.money(invoice.totalTaxAmount)}"></td>
+            </tr>
+        </table>
     </div>
-    <div>
-        <strong>For Shankar Sales</strong>
-        <p style="margin-top: 40px;">Authorised Signatory</p>
-    </div>
+
+    <table class="footer-table">
+        <tr>
+            <th style="width: 38%;">Bank Details</th>
+            <th style="width: 32%;">Declaration</th>
+            <th style="width: 30%;">Authorised Signature</th>
+        </tr>
+        <tr>
+            <td>
+                <div><span class="label">Bank:</span> Kotak Mahindra Bank, Cuttack Branch</div>
+                <div><span class="label">Account No.:</span> 6500159555</div>
+                <div><span class="label">IFSC:</span> KKBK0008788</div>
+            </td>
+            <td>
+                We certify that the particulars given above are true and correct and the goods supplied are as per your order.
+                <div class="note">Subject to Cuttack jurisdiction.</div>
+            </td>
+            <td>
+                <div class="signature-block">
+                    <div></div>
+                    <div class="signature-caption">For Shankar Sales</div>
+                    <div class="signature-caption" style="font-size: 9px;">Authorised Signatory</div>
+                </div>
+            </td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
