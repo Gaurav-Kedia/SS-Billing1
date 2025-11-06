@@ -35,8 +35,7 @@ public class InvoiceController {
     @GetMapping("/")
     public String invoiceForm(Model model) {
         InvoiceForm form = new InvoiceForm();
-        form.setIssueDate(LocalDate.now());
-        form.setDeliveryDate(LocalDate.now());
+        ensureDefaultDates(form);
         ensureEmptyItems(form);
         model.addAttribute("form", form);
         model.addAttribute("hsnMap", hsnCodeCatalog.getHsnToDescription());
@@ -53,6 +52,7 @@ public class InvoiceController {
             bindingResult.reject("items.empty", "Add at least one item with a final amount.");
         }
         if (bindingResult.hasErrors()) {
+            ensureDefaultDates(form);
             model.addAttribute("hsnMap", hsnCodeCatalog.getHsnToDescription());
             return "invoice/form";
         }
@@ -88,5 +88,14 @@ public class InvoiceController {
             items.add(new InvoiceItemForm());
         }
         form.setItems(items);
+    }
+
+    private void ensureDefaultDates(InvoiceForm form) {
+        if (form.getIssueDate() == null) {
+            form.setIssueDate(LocalDate.now());
+        }
+        if (form.getDeliveryDate() == null) {
+            form.setDeliveryDate(LocalDate.now());
+        }
     }
 }
