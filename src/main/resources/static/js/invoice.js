@@ -7,12 +7,29 @@
     const totalBaseEl = document.querySelector('#totalBase');
     const totalTaxEl = document.querySelector('#totalTax');
     const grandTotalEl = document.querySelector('#grandTotal');
+    const issueDateInput = document.querySelector('input[name="issueDate"]');
+    const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
 
     if (!tableBody) {
         return;
     }
 
     const hsnDefaults = buildHsnDefaults();
+
+    function ensureDefaultDate(field) {
+        if (!field) {
+            return;
+        }
+        if (!field.value) {
+            const today = new Date();
+            const month = String(today.getMonth() + 1).padStart(2, '0');
+            const day = String(today.getDate()).padStart(2, '0');
+            field.value = `${today.getFullYear()}-${month}-${day}`;
+        }
+    }
+
+    ensureDefaultDate(issueDateInput);
+    ensureDefaultDate(deliveryDateInput);
 
     function buildHsnDefaults() {
         const map = {};
