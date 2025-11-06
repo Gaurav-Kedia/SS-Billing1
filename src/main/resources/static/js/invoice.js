@@ -10,6 +10,12 @@
     const issueDateInput = document.querySelector('input[name="issueDate"]');
     const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
 
+    if (!tableBody) {
+        return;
+    }
+
+    const hsnDefaults = buildHsnDefaults();
+
     function ensureDefaultDate(field) {
         if (!field) {
             return;
@@ -24,12 +30,6 @@
 
     ensureDefaultDate(issueDateInput);
     ensureDefaultDate(deliveryDateInput);
-
-    if (!tableBody) {
-        return;
-    }
-
-    const hsnDefaults = buildHsnDefaults();
 
     function buildHsnDefaults() {
         const map = {};
