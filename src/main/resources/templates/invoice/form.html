@@ -43,7 +43,7 @@
                 <label class="form-label">State Code</label>
                 <input type="text" class="form-control" value="21" readonly>
             </div>
-            <div class="col-md-4" th:with="resolvedIssueDate=${*{issueDate} != null ? *{issueDate} : T(java.time.LocalDate).now()}">
+            <div class="col-md-4" th:with="resolvedIssueDate=${*{issueDate} != null ? *{issueDate} : #temporals.createToday()}">
                 <label class="form-label">Issue Date *</label>
                 <input type="date"
                        class="form-control"
@@ -51,7 +51,7 @@
                        th:value="${#temporals.format(resolvedIssueDate, 'yyyy-MM-dd')}"
                        required>
             </div>
-            <div class="col-md-4" th:with="resolvedDeliveryDate=${*{deliveryDate} != null ? *{deliveryDate} : T(java.time.LocalDate).now()}">
+            <div class="col-md-4" th:with="resolvedDeliveryDate=${*{deliveryDate} != null ? *{deliveryDate} : #temporals.createToday()}">
                 <label class="form-label">Delivery Date *</label>
                 <input type="date"
                        class="form-control"
