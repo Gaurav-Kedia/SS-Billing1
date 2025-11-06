@@ -48,6 +48,7 @@
                 <input type="date"
                        class="form-control"
                        th:field="*{issueDate}"
+                       th:value="${form.issueDate == null ? #temporals.format(T(java.time.LocalDate).now(), 'yyyy-MM-dd') : #temporals.format(form.issueDate, 'yyyy-MM-dd')}"
                        required>
             </div>
             <div class="col-md-4">
@@ -55,6 +56,7 @@
                 <input type="date"
                        class="form-control"
                        th:field="*{deliveryDate}"
+                       th:value="${form.deliveryDate == null ? #temporals.format(T(java.time.LocalDate).now(), 'yyyy-MM-dd') : #temporals.format(form.deliveryDate, 'yyyy-MM-dd')}"
                        required>
             </div>
             <div class="col-md-4">
