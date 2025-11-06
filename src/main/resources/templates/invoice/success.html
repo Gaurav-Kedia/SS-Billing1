@@ -59,10 +59,10 @@
                         <td th:text="${item.description}"></td>
                         <td th:text="${item.hsnCode}"></td>
                         <td th:text="${item.quantity}"></td>
-                        <td th:text="${#numbers.formatDecimal(item.baseAmount, 0, 'COMMA', 2, 'POINT')}"></td>
-                        <td th:text="${#numbers.formatDecimal(item.sgstAmount, 0, 'COMMA', 2, 'POINT')}"></td>
-                        <td th:text="${#numbers.formatDecimal(item.cgstAmount, 0, 'COMMA', 2, 'POINT')}"></td>
-                        <td th:text="${#numbers.formatDecimal(item.finalAmount, 0, 'COMMA', 2, 'POINT')}"></td>
+                        <td th:text="${@formatting.amount(item.baseAmount)}"></td>
+                        <td th:text="${@formatting.amount(item.sgstAmount)}"></td>
+                        <td th:text="${@formatting.amount(item.cgstAmount)}"></td>
+                        <td th:text="${@formatting.amount(item.finalAmount)}"></td>
                     </tr>
                     </tbody>
                 </table>
@@ -72,22 +72,27 @@
                 <div class="col-md-4">
                     <div class="p-3 border rounded">
                         <p class="mb-1 text-muted">Total Value of Goods</p>
-                        <h4 class="mb-0" th:text="${#numbers.formatDecimal(invoice.totalBaseAmount, 0, 'COMMA', 2, 'POINT')}">0.00</h4>
+                        <h4 class="mb-0" th:text="${@formatting.money(invoice.totalBaseAmount)}">₹ 0.00</h4>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="p-3 border rounded">
                         <p class="mb-1 text-muted">Total GST (18%)</p>
-                        <h4 class="mb-0" th:text="${#numbers.formatDecimal(invoice.totalTaxAmount, 0, 'COMMA', 2, 'POINT')}">0.00</h4>
+                        <h4 class="mb-0" th:text="${@formatting.money(invoice.totalTaxAmount)}">₹ 0.00</h4>
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="p-3 border rounded">
                         <p class="mb-1 text-muted">Grand Total</p>
-                        <h4 class="mb-0" th:text="${#numbers.formatDecimal(invoice.totalAmount, 0, 'COMMA', 2, 'POINT')}">0.00</h4>
-                        <small class="text-muted">Discount Applied: ₹<span th:text="${#numbers.formatDecimal(invoice.discountAmount, 0, 'COMMA', 2, 'POINT')}">0.00</span></small>
+                        <h4 class="mb-0" th:text="${@formatting.money(invoice.totalAmount)}">₹ 0.00</h4>
+                        <small class="text-muted">Discount Applied: ₹<span th:text="${@formatting.amount(invoice.discountAmount)}">0.00</span></small>
                     </div>
                 </div>
+            </div>
+
+            <div class="alert alert-light border" role="alert">
+                <strong>Amount in Words:</strong>
+                <span th:text="${invoice.totalAmount != null ? @formatting.amountInWords(invoice.totalAmount) : ''}"></span>
             </div>
 
             <div class="d-flex flex-wrap gap-2">
