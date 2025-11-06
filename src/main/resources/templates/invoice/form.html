@@ -45,11 +45,19 @@
             </div>
             <div class="col-md-4">
                 <label class="form-label">Issue Date *</label>
-                <input type="date" class="form-control" th:field="*{issueDate}" required>
+                <input type="date"
+                       class="form-control"
+                       th:field="*{issueDate}"
+                       th:value="${(form.issueDate != null ? form.issueDate : T(java.time.LocalDate).now()).format(T(java.time.format.DateTimeFormatter).ISO_LOCAL_DATE)}"
+                       required>
             </div>
             <div class="col-md-4">
                 <label class="form-label">Delivery Date *</label>
-                <input type="date" class="form-control" th:field="*{deliveryDate}" required>
+                <input type="date"
+                       class="form-control"
+                       th:field="*{deliveryDate}"
+                       th:value="${(form.deliveryDate != null ? form.deliveryDate : T(java.time.LocalDate).now()).format(T(java.time.format.DateTimeFormatter).ISO_LOCAL_DATE)}"
+                       required>
             </div>
             <div class="col-md-4">
                 <label class="form-label">Vehicle Number</label>
