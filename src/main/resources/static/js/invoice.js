@@ -10,7 +10,16 @@
         }
         if (!field.value) {
             const today = new Date();
-            field.valueAsDate = today;
+            // Reset the time portion to avoid timezone-induced off-by-one issues.
+            const localDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+            if ('valueAsDate' in field) {
+                field.valueAsDate = localDate;
+            }
+            if (!field.value) {
+                const month = String(localDate.getMonth() + 1).padStart(2, '0');
+                const day = String(localDate.getDate()).padStart(2, '0');
+                field.value = `${localDate.getFullYear()}-${month}-${day}`;
+            }
         }
     }
 
