@@ -1,20 +1,8 @@
 (function () {
     const GST_RATE = 0.18;
 
-    const tableBody = document.querySelector('#itemsTable tbody');
-    const addButton = document.querySelector('#addItem');
-    const discountInput = document.querySelector('[name="discountAmount"]');
-    const totalBaseEl = document.querySelector('#totalBase');
-    const totalTaxEl = document.querySelector('#totalTax');
-    const grandTotalEl = document.querySelector('#grandTotal');
     const issueDateInput = document.querySelector('input[name="issueDate"]');
     const deliveryDateInput = document.querySelector('input[name="deliveryDate"]');
-
-    if (!tableBody) {
-        return;
-    }
-
-    const hsnDefaults = buildHsnDefaults();
 
     function ensureDefaultDate(field) {
         if (!field) {
@@ -30,6 +18,19 @@
 
     ensureDefaultDate(issueDateInput);
     ensureDefaultDate(deliveryDateInput);
+
+    const tableBody = document.querySelector('#itemsTable tbody');
+    const addButton = document.querySelector('#addItem');
+    const discountInput = document.querySelector('[name="discountAmount"]');
+    const totalBaseEl = document.querySelector('#totalBase');
+    const totalTaxEl = document.querySelector('#totalTax');
+    const grandTotalEl = document.querySelector('#grandTotal');
+
+    if (!tableBody) {
+        return;
+    }
+
+    const hsnDefaults = buildHsnDefaults();
 
     function buildHsnDefaults() {
         const map = {};
@@ -52,7 +53,10 @@
         if (isNaN(value)) {
             return '';
         }
-        return value.toFixed(2);
+        return new Intl.NumberFormat('en-IN', {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        }).format(value);
     }
 
     function parseNumber(value, fallback = 0) {
