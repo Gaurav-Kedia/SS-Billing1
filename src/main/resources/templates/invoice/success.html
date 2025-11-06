@@ -28,8 +28,12 @@
                 <div class="col-md-6">
                     <h5>Invoice Details</h5>
                     <p class="mb-1"><strong>State:</strong> ODISHA (21)</p>
-                    <p class="mb-1"><strong>Issue Date:</strong> <span th:text="${invoice.issueDate}"></span></p>
-                    <p class="mb-1"><strong>Delivery Date:</strong> <span th:text="${invoice.deliveryDate}"></span></p>
+                    <p class="mb-1"><strong>Issue Date:</strong>
+                        <span th:text="${invoice.issueDate != null ? #temporals.format(invoice.issueDate, 'dd/MM/yyyy') : ''}"></span>
+                    </p>
+                    <p class="mb-1"><strong>Delivery Date:</strong>
+                        <span th:text="${invoice.deliveryDate != null ? #temporals.format(invoice.deliveryDate, 'dd/MM/yyyy') : ''}"></span>
+                    </p>
                     <p class="mb-1"><strong>Vehicle:</strong> <span th:text="${invoice.vehicleNumber}"></span></p>
                     <p class="mb-1"><strong>Place of Supply:</strong> <span th:text="${invoice.placeOfSupply}"></span></p>
                 </div>
