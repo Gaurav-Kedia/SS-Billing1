@@ -45,11 +45,19 @@
             </div>
             <div class="col-md-4">
                 <label class="form-label">Issue Date *</label>
-                <input type="date" class="form-control" th:field="*{issueDate}" required>
+                <input type="date"
+                       class="form-control"
+                       th:field="*{issueDate}"
+                       th:attr="value=${form.issueDate != null ? #temporals.format(form.issueDate, 'yyyy-MM-dd') : #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+                       required>
             </div>
             <div class="col-md-4">
                 <label class="form-label">Delivery Date *</label>
-                <input type="date" class="form-control" th:field="*{deliveryDate}" required>
+                <input type="date"
+                       class="form-control"
+                       th:field="*{deliveryDate}"
+                       th:attr="value=${form.deliveryDate != null ? #temporals.format(form.deliveryDate, 'yyyy-MM-dd') : #temporals.format(#temporals.createNow(), 'yyyy-MM-dd')}"
+                       required>
             </div>
             <div class="col-md-4">
                 <label class="form-label">Vehicle Number</label>
