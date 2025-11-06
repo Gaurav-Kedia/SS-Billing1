@@ -22,10 +22,10 @@ public class InvoiceForm {
     private String customerGstin;
 
     @NotNull(message = "Issue date is required")
-    private LocalDate issueDate;
+    private LocalDate issueDate = LocalDate.now();
 
     @NotNull(message = "Delivery date is required")
-    private LocalDate deliveryDate;
+    private LocalDate deliveryDate = LocalDate.now();
 
     private String vehicleNumber;
 
