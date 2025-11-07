@@ -25,6 +25,30 @@ public class FormatFunctions {
 
     private static final int[] GROUP_SIZES = {3, 2, 2, 2, 2, 2, 2, 2, 2};
 
+    private static final ThreadLocal<DecimalFormat> INDIAN_MONEY_FORMAT = ThreadLocal.withInitial(() -> {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("en", "IN"));
+        DecimalFormat decimalFormat = new DecimalFormat("#,##,##0.00", symbols);
+        decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+        return decimalFormat;
+    });
+
+    private static final ThreadLocal<DecimalFormat> INDIAN_INTEGER_FORMAT = ThreadLocal.withInitial(() -> {
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(new Locale("en", "IN"));
+        DecimalFormat decimalFormat = new DecimalFormat("#,##,##0", symbols);
+        decimalFormat.setRoundingMode(RoundingMode.HALF_UP);
+        return decimalFormat;
+    });
+
+    private static String format(ThreadLocal<DecimalFormat> holder, BigDecimal amount) {
+        if (amount == null) {
+            return "";
+        }
+        DecimalFormat decimalFormat = holder.get();
+        synchronized (decimalFormat) {
+            return decimalFormat.format(amount);
+        }
+    }
+
     public String amount(BigDecimal amount) {
         return formatAmount(amount, 2);
     }
@@ -74,74 +98,6 @@ public class FormatFunctions {
         }
         BigDecimal perUnit = totalAmount.divide(new BigDecimal(quantity), 2, RoundingMode.HALF_UP);
         return amount(perUnit);
-    }
-
-    private static String formatAmount(BigDecimal amount, int scale) {
-        if (amount == null) {
-            return "";
-        }
-        BigDecimal normalized = amount.setScale(scale, RoundingMode.HALF_UP);
-        boolean negative = normalized.signum() < 0;
-        normalized = normalized.abs();
-
-        String plain = normalized.toPlainString();
-        int decimalIndex = plain.indexOf('.');
-        String integerPart = decimalIndex >= 0 ? plain.substring(0, decimalIndex) : plain;
-        String fractionalPart = decimalIndex >= 0 ? plain.substring(decimalIndex + 1) : "";
-
-        String groupedInteger = groupIndianDigits(integerPart);
-
-        StringBuilder builder = new StringBuilder();
-        if (negative) {
-            builder.append('-');
-        }
-        builder.append(groupedInteger);
-
-        if (scale > 0) {
-            if (fractionalPart.length() < scale) {
-                fractionalPart = fractionalPart + "0".repeat(scale - fractionalPart.length());
-            }
-            builder.append('.').append(fractionalPart.substring(0, scale));
-        }
-
-        return builder.toString();
-    }
-
-    private static String groupIndianDigits(String digits) {
-        if (digits == null || digits.isEmpty()) {
-            return "";
-        }
-        boolean allZeros = digits.chars().allMatch(ch -> ch == '0');
-        if (allZeros) {
-            return "0";
-        }
-
-        int length = digits.length();
-        if (length <= 3) {
-            return digits;
-        }
-
-        int prefixLength = length - 3;
-        int firstGroupLength = prefixLength % 2;
-        StringBuilder builder = new StringBuilder();
-
-        if (firstGroupLength > 0) {
-            builder.append(digits, 0, firstGroupLength);
-        }
-
-        for (int index = firstGroupLength; index < prefixLength; index += 2) {
-            String group = digits.substring(index, index + 2);
-            if (builder.length() > 0) {
-                builder.append(',');
-            }
-            builder.append(group);
-        }
-
-        if (builder.length() > 0) {
-            builder.append(',');
-        }
-        builder.append(digits.substring(length - 3));
-        return builder.toString();
     }
 
     public String amountInWords(BigDecimal amount) {
