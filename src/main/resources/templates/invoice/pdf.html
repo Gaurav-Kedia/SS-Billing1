@@ -25,14 +25,41 @@
             margin-bottom: 6px;
         }
 
-        .contact-info {
-            font-size: 11px;
+        .brand-row {
+            display: flex;
+            align-items: stretch;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .brand-row .company-title {
+            flex: 1;
+        }
+
+        .brand-info {
+            flex: 0 0 24%;
+            font-size: 10px;
             line-height: 1.4;
             text-transform: uppercase;
         }
 
-        .contact-info .label {
+        .brand-info .label {
             font-weight: 700;
+        }
+
+        .brand-info-right {
+            text-align: right;
+        }
+
+        .brand-info .state-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .brand-info .state-row .label {
+            margin-right: 0;
         }
 
         .tax-invoice-title {
@@ -180,12 +207,13 @@
         }
 
         .amount-section .summary-cell {
-            width: 60%;
+            width: 45%;
+            padding-left: 12px;
         }
 
         .amount-section .words-cell {
-            width: 40%;
-            padding-left: 12px;
+            width: 55%;
+            padding-right: 12px;
         }
 
         .totals-table {
@@ -274,16 +302,23 @@
 <body>
 <div class="sheet">
     <div class="header-top">
-        <div class="contact-info">
-            <div><span class="label">GSTIN :</span> 21AJRPK1202C1ZZ</div>
-            <div><span class="label">State :</span> ODISHA</div>
-            <div><span class="label">State Code :</span> 21</div>
-            <div><span class="label">Mobile :</span> 9437342214</div>
+        <div class="tax-invoice-title">Tax Invoice</div>
+        <div class="brand-row">
+            <div class="brand-info">
+                <div><span class="label">GSTIN :</span> 21AJRPK1202C1ZZ</div>
+                <div class="state-row">
+                    <span class="label">State :</span>
+                    <span>ODISHA</span>
+                    <span class="label">State Code :</span>
+                    <span>21</span>
+                </div>
+            </div>
+            <div class="company-title">Shankar Sales</div>
+            <div class="brand-info brand-info-right">
+                <div><span class="label">Phone :</span> 9437342214</div>
+            </div>
         </div>
     </div>
-
-    <div class="tax-invoice-title">Tax Invoice</div>
-    <div class="company-title">Shankar Sales</div>
     <div class="subtitle">
         <strong>WPC Frame and Doors, PVC / Fibre Door &amp; Windows, Aluminium Door &amp; Windows</strong>
         <span>Wooden Doors &amp; Designer Doors • UPVC Doors &amp; Windows • Hardware and other supplies</span>
@@ -301,7 +336,6 @@
                 <div class="meta-line"><span class="label">Place of Supply :</span> <span th:text="${invoice.placeOfSupply}"></span></div>
             </td>
             <td style="width: 40%;">
-                <div class="section-title">Invoice Details</div>
                 <div class="invoice-number">
                     <span class="label">Invoice No.</span>
                     <span th:text="${invoice.billNumber != null ? invoice.billNumber : '-'}"></span>
@@ -310,10 +344,6 @@
                     <div>
                         <span class="label">Invoice Date :</span>
                         <span th:text="${invoice.issueDate != null ? #temporals.format(invoice.issueDate, 'dd/MM/yyyy') : ''}"></span>
-                    </div>
-                    <div>
-                        <span class="label">Delivery Date :</span>
-                        <span th:text="${invoice.deliveryDate != null ? #temporals.format(invoice.deliveryDate, 'dd/MM/yyyy') : ''}"></span>
                     </div>
                     <div>
                         <span class="label">Vehicle No. :</span>
@@ -356,6 +386,12 @@
 
     <table class="amount-section">
         <tr>
+            <td class="words-cell">
+                <div class="amount-words">
+                    <span class="label">Amount in Words :</span>
+                    <span th:text="${invoice.totalAmount != null ? formatting.amountInWords(invoice.totalAmount) : ''}"></span>
+                </div>
+            </td>
             <td class="summary-cell">
                 <table class="totals-table">
                     <tr>
@@ -386,12 +422,6 @@
                         <td class="value" th:text="${formatting.roundedMoney(invoice.totalAmount)}"></td>
                     </tr>
                 </table>
-            </td>
-            <td class="words-cell">
-                <div class="amount-words">
-                    <span class="label">Amount in Words :</span>
-                    <span th:text="${invoice.totalAmount != null ? formatting.amountInWords(invoice.totalAmount) : ''}"></span>
-                </div>
             </td>
         </tr>
     </table>
