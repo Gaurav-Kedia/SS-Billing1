@@ -9,150 +9,156 @@
     <link rel="stylesheet" th:href="@{/css/invoice.css}">
 </head>
 <body>
-<div class="container py-4">
-    <h1 class="text-center mb-4">Shankar Sales - Tax Invoice</h1>
-    <form th:action="@{/invoices}" method="post" th:object="${form}" class="needs-validation" novalidate>
-        <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
-            <ul class="mb-0">
-                <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
-            </ul>
-        </div>
-        <div class="row g-3">
-            <div class="col-md-6">
-                <label class="form-label">Customer Name *</label>
-                <input type="text" class="form-control" th:field="*{customerName}" required>
-                <div class="invalid-feedback">Customer name is required.</div>
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Customer Phone</label>
-                <input type="text" class="form-control" th:field="*{customerPhone}">
-            </div>
-            <div class="col-12">
-                <label class="form-label">Customer Address</label>
-                <textarea class="form-control" rows="2" th:field="*{customerAddress}"></textarea>
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">GSTIN / UID</label>
-                <input type="text" class="form-control" th:field="*{customerGstin}">
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">State</label>
-                <input type="text" class="form-control" value="ODISHA" readonly>
-            </div>
-            <div class="col-md-3">
-                <label class="form-label">State Code</label>
-                <input type="text" class="form-control" value="21" readonly>
-            </div>
-            <div class="col-md-4" th:with="resolvedIssueDate=${form.issueDate != null ? form.issueDate : #temporals.createToday()}">
-                <label class="form-label">Issue Date *</label>
-                <input type="date"
-                       class="form-control"
-                       th:field="*{issueDate}"
-                       required>
-            </div>
-            <div class="col-md-4" th:with="resolvedDeliveryDate=${form.deliveryDate != null ? form.deliveryDate : #temporals.createToday()}">
-                <label class="form-label">Delivery Date *</label>
-                <input type="date"
-                       class="form-control"
-                       th:field="*{deliveryDate}"
-                       required>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Vehicle Number</label>
-                <input type="text" class="form-control" th:field="*{vehicleNumber}">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Place of Supply</label>
-                <input type="text" class="form-control" th:field="*{placeOfSupply}">
-            </div>
-            <div class="col-md-6">
-                <label class="form-label">Discount Amount (₹)</label>
-                <input type="number" step="0.01" class="form-control" th:field="*{discountAmount}" value="0">
-            </div>
-        </div>
+<div class="container py-4 py-lg-5">
+    <div class="mx-auto invoice-wrapper">
+        <h1 class="text-center mb-4 mb-lg-5">Shankar Sales - Tax Invoice</h1>
+        <form th:action="@{/invoices}" method="post" th:object="${form}" class="needs-validation" novalidate>
+            <div class="card shadow-sm border-0 invoice-card">
+                <div class="card-body p-4 p-lg-5">
+                    <div th:if="${#fields.hasGlobalErrors()}" class="alert alert-danger" role="alert">
+                        <ul class="mb-0">
+                            <li th:each="err : ${#fields.globalErrors()}" th:text="${err}"></li>
+                        </ul>
+                    </div>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Customer Name *</label>
+                            <input type="text" class="form-control" th:field="*{customerName}" required>
+                            <div class="invalid-feedback">Customer name is required.</div>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Customer Phone</label>
+                            <input type="text" class="form-control" th:field="*{customerPhone}">
+                        </div>
+                        <div class="col-12">
+                            <label class="form-label">Customer Address</label>
+                            <textarea class="form-control" rows="2" th:field="*{customerAddress}"></textarea>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">GSTIN / UID</label>
+                            <input type="text" class="form-control" th:field="*{customerGstin}">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">State</label>
+                            <input type="text" class="form-control" value="ODISHA" readonly>
+                        </div>
+                        <div class="col-md-3">
+                            <label class="form-label">State Code</label>
+                            <input type="text" class="form-control" value="21" readonly>
+                        </div>
+                        <div class="col-md-4" th:with="resolvedIssueDate=${form.issueDate != null ? form.issueDate : #temporals.createToday()}">
+                            <label class="form-label">Issue Date *</label>
+                            <input type="date"
+                                   class="form-control"
+                                   th:field="*{issueDate}"
+                                   required>
+                        </div>
+                        <div class="col-md-4" th:with="resolvedDeliveryDate=${form.deliveryDate != null ? form.deliveryDate : #temporals.createToday()}">
+                            <label class="form-label">Delivery Date *</label>
+                            <input type="date"
+                                   class="form-control"
+                                   th:field="*{deliveryDate}"
+                                   required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Vehicle Number</label>
+                            <input type="text" class="form-control" th:field="*{vehicleNumber}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Place of Supply</label>
+                            <input type="text" class="form-control" th:field="*{placeOfSupply}">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Discount Amount (₹)</label>
+                            <input type="number" step="0.01" class="form-control" th:field="*{discountAmount}" value="0">
+                        </div>
+                    </div>
 
-        <div class="table-responsive my-4">
-            <table class="table table-bordered align-middle" id="itemsTable">
-                <thead class="table-light">
-                <tr>
-                    <th scope="col">SL. No</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">HSN Code</th>
-                    <th scope="col">Qty</th>
-                    <th scope="col">Value of Goods (₹)</th>
-                    <th scope="col">SGST 9% (₹)</th>
-                    <th scope="col">CGST 9% (₹)</th>
-                    <th scope="col">Final Amount (₹ incl. GST / unit)</th>
-                    <th scope="col"></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="item, stat : *{items}" th:data-index="${stat.index}">
-                    <td th:text="${stat.index + 1}"></td>
-                    <td>
-                        <input type="text" class="form-control" th:field="*{items[__${stat.index}__].description}" required>
-                    </td>
-                    <td>
-                        <select class="form-select hsn-select" th:field="*{items[__${stat.index}__].hsnCode}" required>
-                            <option value="" disabled th:selected="${item.hsnCode == null}">Select</option>
-                            <option th:each="entry : ${hsnMap.entrySet()}"
-                                    th:value="${entry.key}"
-                                    th:text="${entry.key + ' - ' + entry.value}"
-                                    th:selected="${entry.key == item.hsnCode}"></option>
-                        </select>
-                    </td>
-                    <td>
-                        <input type="number" min="1" step="1" class="form-control quantity" th:field="*{items[__${stat.index}__].quantity}" value="1" required>
-                    </td>
-                    <td>
-                        <input type="number" class="form-control base-amount" th:field="*{items[__${stat.index}__].baseAmount}" readonly>
-                    </td>
-                    <td>
-                        <input type="number" class="form-control sgst-amount" th:field="*{items[__${stat.index}__].sgstAmount}" readonly>
-                    </td>
-                    <td>
-                        <input type="number" class="form-control cgst-amount" th:field="*{items[__${stat.index}__].cgstAmount}" readonly>
-                    </td>
-                    <td>
-                        <input type="number" min="0" step="0.01" class="form-control final-amount" th:field="*{items[__${stat.index}__].finalAmount}" required>
-                    </td>
-                    <td class="text-center">
-                        <button type="button" class="btn btn-outline-danger btn-sm remove-row" title="Remove row">
-                            &times;
-                        </button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
-            <button type="button" class="btn btn-secondary" id="addItem">Add Item</button>
-        </div>
+                    <div class="table-responsive my-4">
+                        <table class="table table-bordered align-middle" id="itemsTable">
+                            <thead class="table-light">
+                            <tr>
+                                <th scope="col">SL. No</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">HSN Code</th>
+                                <th scope="col">Qty</th>
+                                <th scope="col">Value of Goods (₹)</th>
+                                <th scope="col">SGST 9% (₹)</th>
+                                <th scope="col">CGST 9% (₹)</th>
+                                <th scope="col">Final Amount (₹ incl. GST / unit)</th>
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item, stat : *{items}" th:data-index="${stat.index}">
+                                <td data-label="SL. No" th:text="${stat.index + 1}"></td>
+                                <td data-label="Description">
+                                    <input type="text" class="form-control" th:field="*{items[__${stat.index}__].description}" required>
+                                </td>
+                                <td data-label="HSN Code">
+                                    <select class="form-select hsn-select" th:field="*{items[__${stat.index}__].hsnCode}" required>
+                                        <option value="" disabled th:selected="${item.hsnCode == null}">Select</option>
+                                        <option th:each="entry : ${hsnMap.entrySet()}"
+                                                th:value="${entry.key}"
+                                                th:text="${entry.key + ' - ' + entry.value}"
+                                                th:selected="${entry.key == item.hsnCode}"></option>
+                                    </select>
+                                </td>
+                                <td data-label="Qty">
+                                    <input type="number" min="1" step="1" class="form-control quantity" th:field="*{items[__${stat.index}__].quantity}" value="1" required>
+                                </td>
+                                <td data-label="Value of Goods (₹)">
+                                    <input type="number" class="form-control base-amount" th:field="*{items[__${stat.index}__].baseAmount}" readonly>
+                                </td>
+                                <td data-label="SGST 9% (₹)">
+                                    <input type="number" class="form-control sgst-amount" th:field="*{items[__${stat.index}__].sgstAmount}" readonly>
+                                </td>
+                                <td data-label="CGST 9% (₹)">
+                                    <input type="number" class="form-control cgst-amount" th:field="*{items[__${stat.index}__].cgstAmount}" readonly>
+                                </td>
+                                <td data-label="Final Amount (₹ incl. GST / unit)">
+                                    <input type="number" min="0" step="0.01" class="form-control final-amount" th:field="*{items[__${stat.index}__].finalAmount}" required>
+                                </td>
+                                <td class="text-center" data-label="Actions">
+                                    <button type="button" class="btn btn-outline-danger btn-sm remove-row" title="Remove row">
+                                        &times;
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <button type="button" class="btn btn-secondary add-item-btn mt-3" id="addItem">Add Item</button>
+                    </div>
 
-        <div class="row g-3 mb-4">
-            <div class="col-md-4">
-                <label class="form-label">Total Value of Goods (₹)</label>
-                <input type="text" class="form-control" id="totalBase" readonly>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Total GST (₹)</label>
-                <input type="text" class="form-control" id="totalTax" readonly>
-            </div>
-            <div class="col-md-4">
-                <label class="form-label">Grand Total (₹)</label>
-                <input type="text" class="form-control" id="grandTotal" readonly>
-            </div>
-        </div>
+                    <div class="row g-3 mb-4">
+                        <div class="col-md-4">
+                            <label class="form-label">Total Value of Goods (₹)</label>
+                            <input type="text" class="form-control" id="totalBase" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Total GST (₹)</label>
+                            <input type="text" class="form-control" id="totalTax" readonly>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Grand Total (₹)</label>
+                            <input type="text" class="form-control" id="grandTotal" readonly>
+                        </div>
+                    </div>
 
-        <div class="mb-4">
-            <label class="form-label">Signature &amp; Stamp</label>
-            <div class="border rounded p-3 bg-light" style="min-height: 120px;">
-                <p class="mb-0 small text-muted">(Will appear on the generated PDF)</p>
-            </div>
-        </div>
+                    <div class="mb-4">
+                        <label class="form-label">Signature &amp; Stamp</label>
+                        <div class="border rounded p-3 bg-light" style="min-height: 120px;">
+                            <p class="mb-0 small text-muted">(Will appear on the generated PDF)</p>
+                        </div>
+                    </div>
 
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button type="submit" class="btn btn-primary btn-lg">Generate Invoice</button>
-        </div>
-    </form>
+                    <div class="d-grid gap-3 gap-md-4 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-primary btn-lg generate-btn">Generate Invoice</button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
