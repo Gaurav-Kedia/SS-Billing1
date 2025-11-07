@@ -21,6 +21,20 @@
             padding: 18px 20px;
         }
 
+        .header-top {
+            margin-bottom: 6px;
+        }
+
+        .contact-info {
+            font-size: 11px;
+            line-height: 1.4;
+            text-transform: uppercase;
+        }
+
+        .contact-info .label {
+            font-weight: 700;
+        }
+
         .tax-invoice-title {
             text-align: center;
             font-size: 18px;
@@ -29,34 +43,14 @@
             margin-bottom: 6px;
         }
 
-        .header-grid {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .header-grid td {
-            border: 1px solid #000;
-            padding: 10px 14px;
-            vertical-align: top;
-        }
-
-        .header-grid td.title {
+        .company-title {
             text-align: center;
             font-size: 26px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 1.2px;
-        }
-
-        .header-grid .contact-info {
-            font-size: 11px;
-            line-height: 1.4;
-            text-transform: uppercase;
-            text-align: right;
-        }
-
-        .header-grid .contact-info .label {
-            font-weight: 700;
+            border: 1px solid #000;
+            padding: 10px 14px;
         }
 
         .subtitle {
@@ -185,6 +179,15 @@
             vertical-align: top;
         }
 
+        .amount-section .summary-cell {
+            width: 60%;
+        }
+
+        .amount-section .words-cell {
+            width: 40%;
+            padding-left: 12px;
+        }
+
         .totals-table {
             width: 100%;
             border-collapse: collapse;
@@ -209,10 +212,10 @@
         }
 
         .amount-words {
-            margin-top: 12px;
             border: 1px solid #000;
             padding: 8px 10px;
             font-size: 10px;
+            height: 100%;
         }
 
         .footer-table {
@@ -235,21 +238,28 @@
         }
 
         .signature {
-            height: 80px;
+            height: 110px;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            justify-content: flex-end;
+            padding: 8px 0;
+        }
+
+        .signature .stamp-area {
+            flex: 1;
+        }
+
+        .signature .sign-text {
+            text-align: center;
         }
 
         .signature .for-company {
-            text-align: right;
             font-weight: 700;
             text-transform: uppercase;
             color: #000;
         }
 
         .signature .sign-caption {
-            text-align: right;
             font-size: 9px;
             font-weight: 600;
         }
@@ -263,21 +273,17 @@
 </head>
 <body>
 <div class="sheet">
-    <div class="tax-invoice-title">Tax Invoice</div>
-    <table class="header-grid">
-        <tr>
-            <td class="title" style="width: 60%;">Shankar Sales</td>
-            <td style="width: 40%;">
-                <div class="contact-info">
-                    <div><span class="label">GSTIN :</span> 21AJRPK1202C1ZZ</div>
-                    <div><span class="label">State :</span> ODISHA</div>
-                    <div><span class="label">State Code :</span> 21</div>
-                    <div><span class="label">Mobile :</span> 9437342214</div>
-                </div>
-            </td>
-        </tr>
-    </table>
+    <div class="header-top">
+        <div class="contact-info">
+            <div><span class="label">GSTIN :</span> 21AJRPK1202C1ZZ</div>
+            <div><span class="label">State :</span> ODISHA</div>
+            <div><span class="label">State Code :</span> 21</div>
+            <div><span class="label">Mobile :</span> 9437342214</div>
+        </div>
+    </div>
 
+    <div class="tax-invoice-title">Tax Invoice</div>
+    <div class="company-title">Shankar Sales</div>
     <div class="subtitle">
         <strong>WPC Frame and Doors, PVC / Fibre Door &amp; Windows, Aluminium Door &amp; Windows</strong>
         <span>Wooden Doors &amp; Designer Doors • UPVC Doors &amp; Windows • Hardware and other supplies</span>
@@ -314,10 +320,6 @@
                         <span th:text="${invoice.vehicleNumber}"></span>
                     </div>
                 </div>
-                <div class="meta-line"><span class="label">GSTIN / UID :</span> 21AJRPK1202C1ZZ</div>
-                <div class="meta-line"><span class="label">State :</span> ODISHA</div>
-                <div class="meta-line"><span class="label">State Code :</span> 21</div>
-                <div class="meta-line"><span class="label">Place of Supply :</span> <span th:text="${invoice.placeOfSupply}"></span></div>
             </td>
         </tr>
     </table>
@@ -329,7 +331,7 @@
             <th style="width: 30%;">Description of Goods</th>
             <th style="width: 12%;">HSN Code</th>
             <th style="width: 10%;">Quantity</th>
-            <th style="width: 13%;">Rate / Piece (₹)</th>
+            <th style="width: 13%;">Rate (₹)</th>
             <th style="width: 9%;">SGST %</th>
             <th style="width: 9%;">CGST %</th>
             <th style="width: 10%;">Amount (₹)</th>
@@ -354,7 +356,7 @@
 
     <table class="amount-section">
         <tr>
-            <td>
+            <td class="summary-cell">
                 <table class="totals-table">
                     <tr>
                         <th colspan="2">Invoice Summary</th>
@@ -385,13 +387,14 @@
                     </tr>
                 </table>
             </td>
+            <td class="words-cell">
+                <div class="amount-words">
+                    <span class="label">Amount in Words :</span>
+                    <span th:text="${invoice.totalAmount != null ? formatting.amountInWords(invoice.totalAmount) : ''}"></span>
+                </div>
+            </td>
         </tr>
     </table>
-
-    <div class="amount-words">
-        <span class="label">Amount in Words :</span>
-        <span th:text="${invoice.totalAmount != null ? formatting.amountInWords(invoice.totalAmount) : ''}"></span>
-    </div>
 
     <table class="footer-table">
         <tr>
@@ -411,9 +414,11 @@
             </td>
             <td>
                 <div class="signature">
-                    <div class="for-company">For Shankar Sales</div>
-                    <div></div>
-                    <div class="sign-caption">Authorised Signatory</div>
+                    <div class="stamp-area"></div>
+                    <div class="sign-text">
+                        <div class="for-company">For Shankar Sales</div>
+                        <div class="sign-caption">Authorised Signatory</div>
+                    </div>
                 </div>
             </td>
         </tr>
