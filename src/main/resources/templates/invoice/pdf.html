@@ -432,7 +432,7 @@
 
     <div class="amount-words">
         <span class="label">Amount in Words :</span>
-        <span th:text="${invoice.totalAmount != null ? #strings.toUpperCase(formatting.roundedMoney(invoice.totalAmount) + ' Only') : ''}"></span>
+        <span th:text="${invoice.totalAmount != null ? formatting.amountInWords(invoice.totalAmount) : ''}"></span>
     </div>
 
     <table class="footer-table">
