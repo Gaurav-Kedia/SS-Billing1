@@ -12,13 +12,13 @@
             font-size: 11px;
             color: #000;
             margin: 0;
-            padding: 12px;
+            padding: 5px;
             background: #ffffff;
         }
 
         .sheet {
             border: 2px solid #000;
-            padding: 12px 14px;
+            padding: 5px 6px;
         }
 
         .header-top {
@@ -27,11 +27,11 @@
 
         .brand-row {
             display: flex;
-            align-items: stretch;
+            align-items: center;
             justify-content: space-between;
             gap: 16px;
             border: 1px solid #000;
-            padding: 12px 16px;
+            padding: 6px 10px;
         }
 
         .brand-row .company-title {
@@ -41,8 +41,12 @@
         .brand-info {
             flex: 1 1 30%;
             font-size: 10px;
-            line-height: 1.4;
+            line-height: 1.2;
             text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            row-gap: 2px;
         }
 
         .brand-info .label {
@@ -51,6 +55,10 @@
 
         .brand-info-right {
             text-align: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            row-gap: 2px;
         }
 
         .brand-info .state-row {
@@ -58,6 +66,7 @@
             flex-wrap: wrap;
             gap: 6px;
             align-items: center;
+            margin-top: 0;
         }
 
         .brand-info .state-row .label {
@@ -79,6 +88,8 @@
             text-transform: uppercase;
             letter-spacing: 1.2px;
             padding: 0;
+            margin: 0;
+            line-height: 1;
         }
 
         .subtitle {
@@ -117,6 +128,7 @@
             text-transform: uppercase;
             letter-spacing: 0.6px;
             margin-bottom: 6px;
+            font-size: 12px;
         }
 
         .meta-table .meta-line {
