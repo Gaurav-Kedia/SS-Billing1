@@ -12,151 +12,133 @@
             font-size: 11px;
             color: #0f2440;
             margin: 0;
-            padding: 12px;
+            padding: 18px;
+            background: #ffffff;
         }
 
         .sheet {
-            border: 2px solid #10397b;
-            padding: 12px 14px;
+            border: 2px solid #0f2440;
+            padding: 18px 20px;
         }
 
-        .top-bar {
+        .header-grid {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 6px;
         }
 
-        .top-bar td {
-            border: 1px solid #10397b;
-            padding: 4px 8px;
+        .header-grid td {
+            border: 1px solid #0f2440;
+            padding: 6px 10px;
             font-weight: 600;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
-        .top-bar td.title {
-            background: #f7e27d;
-            color: #0f2440;
-            font-size: 14px;
+        .header-grid td.title {
             text-align: center;
-            letter-spacing: 1px;
-        }
-
-        .top-bar td:last-child {
-            text-align: right;
-        }
-
-        .company-section {
-            border: 1px solid #10397b;
-            border-top: none;
-            text-align: center;
-            padding: 10px 12px;
-            margin-bottom: 10px;
-        }
-
-        .company-name {
-            font-size: 24px;
+            font-size: 26px;
             font-weight: 700;
-            color: #10397b;
-            letter-spacing: 1px;
+            background: #f2f4ff;
+            color: #0f2440;
+            letter-spacing: 1.2px;
         }
 
-        .company-subtitle {
-            font-size: 12px;
-            text-transform: uppercase;
-            margin-top: 4px;
-        }
-
-        .company-services,
-        .company-address {
+        .subtitle {
+            text-align: center;
+            border: 1px solid #0f2440;
+            border-top: none;
+            padding: 8px 12px;
             font-size: 10px;
-            margin-top: 4px;
+            line-height: 1.4;
         }
 
-        .meta-grid {
+        .subtitle strong {
+            display: block;
+            font-size: 11px;
+        }
+
+        .subtitle span {
+            display: block;
+        }
+
+        .info-grid {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 12px;
+            margin-top: 10px;
         }
 
-        .meta-grid td {
-            border: 1px solid #10397b;
-            padding: 8px;
+        .info-grid td {
+            border: 1px solid #0f2440;
+            padding: 8px 10px;
+            font-size: 10px;
             vertical-align: top;
         }
 
-        .meta-grid .bill-cell {
-            width: 28%;
+        .info-grid .label {
+            font-weight: 600;
+            color: #0f2440;
+        }
+
+        .info-grid .bill-cell {
+            width: 30%;
             text-align: center;
+            font-size: 11px;
         }
 
-        .meta-grid .bill-label {
-            font-weight: 700;
-            color: #10397b;
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-        }
-
-        .meta-grid .bill-number {
-            font-size: 24px;
+        .info-grid .bill-number {
+            font-size: 20px;
             font-weight: 700;
             margin: 6px 0;
         }
 
-        .label {
-            font-weight: 600;
-            color: #10397b;
-        }
-
-        .meta-grid .field {
-            margin-bottom: 4px;
-            font-size: 10px;
-            text-align: left;
-        }
-
-        .party-table,
-        .items-table,
-        .footer-table,
-        .amount-section,
-        .amount-section table {
+        .party-table {
             width: 100%;
             border-collapse: collapse;
+            margin-top: 12px;
         }
 
         .party-table th,
         .party-table td {
-            border: 1px solid #10397b;
-            padding: 8px;
+            border: 1px solid #0f2440;
+            padding: 8px 10px;
             vertical-align: top;
+            font-size: 10px;
         }
 
         .party-table th {
-            background: #dbe5ff;
+            background: #e8ecff;
             text-transform: uppercase;
             letter-spacing: 0.6px;
             font-size: 11px;
         }
 
-        .party-details {
-            font-size: 10px;
-            line-height: 1.5;
+        .party-details div {
+            margin-bottom: 4px;
+        }
+
+        .label {
+            font-weight: 600;
+            color: #0f2440;
         }
 
         .items-table {
-            margin-top: 12px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 14px;
         }
 
         .items-table th,
         .items-table td {
-            border: 1px solid #10397b;
+            border: 1px solid #0f2440;
             padding: 6px 5px;
             font-size: 10px;
         }
 
         .items-table thead th {
-            background: #cbd7ff;
+            background: #d6ddff;
             text-transform: uppercase;
-            text-align: center;
             letter-spacing: 0.5px;
+            text-align: center;
         }
 
         .items-table td.center {
@@ -169,79 +151,82 @@
         }
 
         .amount-section {
-            margin-top: 14px;
+            margin-top: 16px;
+            width: 100%;
+            border-collapse: collapse;
         }
 
         .amount-section td {
-            border: 1px solid #10397b;
-            padding: 0;
+            vertical-align: top;
         }
 
-        .amount-section table th,
-        .amount-section table td {
-            border: 1px solid #10397b;
+        .totals-table,
+        .tax-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .totals-table th,
+        .totals-table td,
+        .tax-table th,
+        .tax-table td {
+            border: 1px solid #0f2440;
             padding: 6px 8px;
             font-size: 10px;
         }
 
-        .amount-section table th {
-            background: #e8edff;
+        .totals-table th,
+        .tax-table th {
+            background: #e8ecff;
             text-transform: uppercase;
-            text-align: left;
             letter-spacing: 0.5px;
+            text-align: left;
         }
 
-        .amount-section table td.value {
+        .totals-table td.value,
+        .tax-table td.value {
             text-align: right;
             font-weight: 600;
         }
 
-        .amount-section .grand-total {
-            background: #d0dbff;
+        .tax-table tr.total-row td {
+            background: #d6ddff;
             font-weight: 700;
         }
 
-        .amount-section .totals-table {
-            width: 60%;
-        }
-
-        .amount-section .tax-table {
-            width: 40%;
-        }
-
-        .amount-section .tax-table td.label-cell {
-            font-weight: 600;
-        }
-
-        .amount-section .tax-table tr.total-row td {
-            background: #d0dbff;
-            font-weight: 700;
-        }
-
-        .amount-section .tax-table tr.advance-row td {
+        .tax-table tr.advance-row td {
             background: #f4f6ff;
         }
 
+        .amount-words {
+            margin-top: 12px;
+            border: 1px solid #0f2440;
+            padding: 8px 10px;
+            font-size: 10px;
+        }
+
         .footer-table {
-            margin-top: 16px;
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 18px;
         }
 
         .footer-table th,
         .footer-table td {
-            border: 1px solid #10397b;
+            border: 1px solid #0f2440;
             padding: 10px 12px;
             vertical-align: top;
             font-size: 10px;
         }
 
         .footer-table th {
-            background: #dbe5ff;
+            background: #e8ecff;
             text-transform: uppercase;
-            letter-spacing: 0.6px;
+            letter-spacing: 0.5px;
         }
 
         .signature {
-            height: 90px;
+            height: 80px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -251,7 +236,7 @@
             text-align: right;
             font-weight: 700;
             text-transform: uppercase;
-            color: #10397b;
+            color: #0f2440;
         }
 
         .signature .sign-caption {
@@ -262,57 +247,54 @@
 
         .note {
             font-size: 9px;
-            margin-top: 8px;
+            margin-top: 6px;
             font-style: italic;
-        }
-
-        .amount-words {
-            margin-top: 10px;
-            border: 1px solid #10397b;
-            padding: 8px 10px;
-            font-size: 10px;
         }
     </style>
 </head>
 <body>
 <div class="sheet">
-    <table class="top-bar">
+    <table class="header-grid">
         <tr>
             <td>GSTIN : 21AJRPK1202C1ZZ</td>
-            <td class="title">Tax Invoice</td>
+            <td class="title">Shankar Sales</td>
             <td>Mobile : 9437342214</td>
+        </tr>
+        <tr>
+            <td>State : ODISHA</td>
+            <td style="text-align: center; font-weight: 700;">TAX INVOICE</td>
+            <td>State Code : 21</td>
         </tr>
     </table>
 
-    <div class="company-section">
-        <div class="company-name">Shankar Sales</div>
-        <div class="company-subtitle">WPC Frame and Doors, PVC / Fibre Door &amp; Windows, Aluminium Door &amp; Windows</div>
-        <div class="company-services">Wooden Doors &amp; Designer Doors &#8226; UPVC Doors &amp; Windows &#8226; Hardware and other supplies</div>
-        <div class="company-address">GG - 28, R.C.M.S Complex, ST1 Chowk, Rourkela - 4, E - Mail : kedila.shankar04@gmail.com</div>
+    <div class="subtitle">
+        <strong>WPC Frame and Doors, PVC / Fibre Door &amp; Windows, Aluminium Door &amp; Windows</strong>
+        <span>Wooden Doors &amp; Designer Doors • UPVC Doors &amp; Windows • Hardware and other supplies</span>
+        <span>GG - 28, R.C.M.S Complex, ST1 Chowk, Rourkela - 4, E - Mail : kedila.shankar04@gmail.com</span>
     </div>
 
-    <table class="meta-grid">
+    <table class="info-grid">
         <tr>
             <td>
-                <div class="field"><span class="label">GSTIN / UID :</span> 21AJRPK1202C1ZZ</div>
-                <div class="field"><span class="label">State :</span> ODISHA</div>
-                <div class="field"><span class="label">State Code :</span> 21</div>
+                <div><span class="label">GSTIN / UID :</span> 21AJRPK1202C1ZZ</div>
+                <div><span class="label">State :</span> ODISHA</div>
+                <div><span class="label">State Code :</span> 21</div>
             </td>
             <td>
-                <div class="field"><span class="label">Issue Date :</span>
+                <div><span class="label">Issue Date :</span>
                     <span th:text="${invoice.issueDate != null ? #temporals.format(invoice.issueDate, 'dd/MM/yyyy') : ''}"></span>
                 </div>
-                <div class="field"><span class="label">Delivery Date :</span>
+                <div><span class="label">Delivery Date :</span>
                     <span th:text="${invoice.deliveryDate != null ? #temporals.format(invoice.deliveryDate, 'dd/MM/yyyy') : ''}"></span>
                 </div>
-                <div class="field"><span class="label">Vehicle No. :</span>
+                <div><span class="label">Vehicle No. :</span>
                     <span th:text="${invoice.vehicleNumber}"></span>
                 </div>
             </td>
             <td class="bill-cell">
-                <div class="bill-label">Bill No.</div>
+                <div><span class="label">Bill No.</span></div>
                 <div class="bill-number" th:text="${invoice.billNumber != null ? invoice.billNumber : '-'}"></div>
-                <div class="field" style="text-align: center;"><span class="label">Place of Supply :</span>
+                <div><span class="label">Place of Supply :</span>
                     <span th:text="${invoice.placeOfSupply}"></span></div>
             </td>
         </tr>
@@ -342,15 +324,12 @@
     <table class="items-table">
         <thead>
         <tr>
-            <th style="width: 5%;">Sl. No.</th>
-            <th style="width: 28%;">Description of Goods</th>
-            <th style="width: 10%;">HSN / SAC</th>
-            <th style="width: 8%;">Quantity</th>
-            <th style="width: 12%;">Rate (₹)</th>
-            <th style="width: 13%;">Value of Goods (₹)</th>
-            <th style="width: 8%;">SGST @ 9%</th>
-            <th style="width: 8%;">CGST @ 9%</th>
-            <th style="width: 8%;">Total (₹)</th>
+            <th style="width: 6%;">Sl. No.</th>
+            <th style="width: 34%;">Description of Goods</th>
+            <th style="width: 14%;">HSN / SAC</th>
+            <th style="width: 12%;">Quantity</th>
+            <th style="width: 14%;">Rate (₹)</th>
+            <th style="width: 20%;">Value of Goods (₹)</th>
         </tr>
         </thead>
         <tbody>
@@ -361,20 +340,17 @@
             <td class="center" th:text="${item.quantity}"></td>
             <td class="amount" th:text="${formatting.perUnit(item.finalAmount, item.quantity)}"></td>
             <td class="amount" th:text="${formatting.amount(item.baseAmount)}"></td>
-            <td class="amount" th:text="${formatting.amount(item.sgstAmount)}"></td>
-            <td class="amount" th:text="${formatting.amount(item.cgstAmount)}"></td>
-            <td class="amount" th:text="${formatting.amount(item.finalAmount)}"></td>
         </tr>
         <tr th:if="${invoice.items.isEmpty()}">
-            <td colspan="9" style="text-align: center; padding: 14px 0;">No items added.</td>
+            <td colspan="6" style="text-align: center; padding: 14px 0;">No items added.</td>
         </tr>
         </tbody>
     </table>
 
     <table class="amount-section">
         <tr>
-            <td class="totals-table">
-                <table>
+            <td style="width: 55%; padding-right: 10px;">
+                <table class="totals-table">
                     <tr>
                         <th colspan="2">Invoice Summary</th>
                     </tr>
@@ -394,35 +370,27 @@
                         <td>Less: Discount</td>
                         <td class="value" th:text="${formatting.money(invoice.discountAmount)}"></td>
                     </tr>
-                    <tr class="grand-total">
+                    <tr>
+                        <td>Round Off</td>
+                        <td class="value" th:text="${formatting.roundOff(invoice.totalAmount)}"></td>
+                    </tr>
+                    <tr class="total-row">
                         <td>Total Invoice Value</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalAmount)}"></td>
+                        <td class="value" th:text="${formatting.roundedMoney(invoice.totalAmount)}"></td>
                     </tr>
                 </table>
             </td>
-            <td class="tax-table">
-                <table>
+            <td style="width: 45%; padding-left: 10px;">
+                <table class="tax-table">
                     <tr>
                         <th colspan="2">Payment Summary</th>
                     </tr>
                     <tr class="advance-row">
-                        <td class="label-cell">Advance</td>
+                        <td>Advance</td>
                         <td class="value" th:text="${formatting.money(T(java.math.BigDecimal).ZERO)}"></td>
                     </tr>
                     <tr>
-                        <td class="label-cell">SGST @ 9%</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalSgstAmount)}"></td>
-                    </tr>
-                    <tr>
-                        <td class="label-cell">CGST @ 9%</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalCgstAmount)}"></td>
-                    </tr>
-                    <tr>
-                        <td class="label-cell">Round Off</td>
-                        <td class="value" th:text="${formatting.roundOff(invoice.totalAmount)}"></td>
-                    </tr>
-                    <tr class="total-row">
-                        <td class="label-cell">Amount Payable</td>
+                        <td>Amount Payable</td>
                         <td class="value" th:text="${formatting.roundedMoney(invoice.totalAmount)}"></td>
                     </tr>
                 </table>
@@ -437,9 +405,9 @@
 
     <table class="footer-table">
         <tr>
-            <th style="width: 38%;">Bank Details</th>
-            <th style="width: 34%;">Declaration</th>
-            <th style="width: 28%;">Authorised Signatory</th>
+            <th style="width: 40%;">Bank Details</th>
+            <th style="width: 35%;">Declaration</th>
+            <th style="width: 25%;">Authorised Signatory</th>
         </tr>
         <tr>
             <td>
