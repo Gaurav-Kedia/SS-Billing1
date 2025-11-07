@@ -359,11 +359,11 @@
             <td th:text="${item.description}"></td>
             <td class="center" th:text="${item.hsnCode}"></td>
             <td class="center" th:text="${item.quantity}"></td>
-            <td class="amount" th:text="${formatting.perUnit(item.finalAmount, item.quantity)}"></td>
-            <td class="amount" th:text="${formatting.amount(item.baseAmount)}"></td>
-            <td class="amount" th:text="${formatting.amount(item.sgstAmount)}"></td>
-            <td class="amount" th:text="${formatting.amount(item.cgstAmount)}"></td>
-            <td class="amount" th:text="${formatting.amount(item.finalAmount)}"></td>
+            <td class="amount" th:text="${@formatting.perUnit(item.finalAmount, item.quantity)}"></td>
+            <td class="amount" th:text="${@formatting.amount(item.baseAmount)}"></td>
+            <td class="amount" th:text="${@formatting.amount(item.sgstAmount)}"></td>
+            <td class="amount" th:text="${@formatting.amount(item.cgstAmount)}"></td>
+            <td class="amount" th:text="${@formatting.amount(item.finalAmount)}"></td>
         </tr>
         <tr th:if="${invoice.items.isEmpty()}">
             <td colspan="9" style="text-align: center; padding: 14px 0;">No items added.</td>
@@ -380,23 +380,23 @@
                     </tr>
                     <tr>
                         <td>Value of Goods</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalBaseAmount)}"></td>
+                        <td class="value" th:text="${@formatting.money(invoice.totalBaseAmount)}"></td>
                     </tr>
                     <tr>
                         <td>Add: SGST @ 9%</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalSgstAmount)}"></td>
+                        <td class="value" th:text="${@formatting.money(invoice.totalSgstAmount)}"></td>
                     </tr>
                     <tr>
                         <td>Add: CGST @ 9%</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalCgstAmount)}"></td>
+                        <td class="value" th:text="${@formatting.money(invoice.totalCgstAmount)}"></td>
                     </tr>
                     <tr th:if="${invoice.discountAmount != null && invoice.discountAmount.compareTo(T(java.math.BigDecimal).ZERO) > 0}">
                         <td>Less: Discount</td>
-                        <td class="value" th:text="${formatting.money(invoice.discountAmount)}"></td>
+                        <td class="value" th:text="${@formatting.money(invoice.discountAmount)}"></td>
                     </tr>
                     <tr class="grand-total">
                         <td>Total Invoice Value</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalAmount)}"></td>
+                        <td class="value" th:text="${@formatting.money(invoice.totalAmount)}"></td>
                     </tr>
                 </table>
             </td>
@@ -407,23 +407,23 @@
                     </tr>
                     <tr class="advance-row">
                         <td class="label-cell">Advance</td>
-                        <td class="value" th:text="${formatting.money(T(java.math.BigDecimal).ZERO)}"></td>
+                        <td class="value" th:text="${@formatting.money(T(java.math.BigDecimal).ZERO)}"></td>
                     </tr>
                     <tr>
                         <td class="label-cell">SGST @ 9%</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalSgstAmount)}"></td>
+                        <td class="value" th:text="${@formatting.money(invoice.totalSgstAmount)}"></td>
                     </tr>
                     <tr>
                         <td class="label-cell">CGST @ 9%</td>
-                        <td class="value" th:text="${formatting.money(invoice.totalCgstAmount)}"></td>
+                        <td class="value" th:text="${@formatting.money(invoice.totalCgstAmount)}"></td>
                     </tr>
                     <tr>
                         <td class="label-cell">Round Off</td>
-                        <td class="value" th:text="${formatting.roundOff(invoice.totalAmount)}"></td>
+                        <td class="value" th:text="${@formatting.roundOff(invoice.totalAmount)}"></td>
                     </tr>
                     <tr class="total-row">
                         <td class="label-cell">Amount Payable</td>
-                        <td class="value" th:text="${formatting.roundedMoney(invoice.totalAmount)}"></td>
+                        <td class="value" th:text="${@formatting.roundedMoney(invoice.totalAmount)}"></td>
                     </tr>
                 </table>
             </td>
@@ -432,7 +432,7 @@
 
     <div class="amount-words">
         <span class="label">Amount in Words :</span>
-        <span th:text="${invoice.totalAmount != null ? #strings.toUpperCase(formatting.roundedMoney(invoice.totalAmount) + ' Only') : ''}"></span>
+        <span th:text="${invoice.totalAmount != null ? @formatting.amountInWords(invoice.totalAmount) : ''}"></span>
     </div>
 
     <table class="footer-table">
