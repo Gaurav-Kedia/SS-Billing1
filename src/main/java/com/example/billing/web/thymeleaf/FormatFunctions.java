@@ -2,8 +2,6 @@ package com.example.billing.web.thymeleaf;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.Locale;
 import org.springframework.stereotype.Component;
 
@@ -52,13 +50,16 @@ public class FormatFunctions {
     }
 
     public String amount(BigDecimal amount) {
-        return format(INDIAN_MONEY_FORMAT, amount);
+        return formatAmount(amount, 2);
     }
 
     public String money(BigDecimal amount) {
         String numeric = amount(amount);
         if (numeric.isEmpty()) {
             return "";
+        }
+        if (numeric.startsWith("-")) {
+            return "-" + RUPEE_SYMBOL + " " + numeric.substring(1);
         }
         return RUPEE_SYMBOL + " " + numeric;
     }
@@ -68,7 +69,11 @@ public class FormatFunctions {
             return "";
         }
         BigDecimal rounded = amount.setScale(0, RoundingMode.HALF_UP);
-        return RUPEE_SYMBOL + " " + INDIAN_INTEGER_FORMAT.get().format(rounded);
+        String numeric = formatAmount(rounded, 0);
+        if (numeric.startsWith("-")) {
+            return "-" + RUPEE_SYMBOL + " " + numeric.substring(1);
+        }
+        return RUPEE_SYMBOL + " " + numeric;
     }
 
     public String roundOff(BigDecimal amount) {
@@ -77,7 +82,14 @@ public class FormatFunctions {
         }
         BigDecimal rounded = amount.setScale(0, RoundingMode.HALF_UP);
         BigDecimal difference = rounded.subtract(amount).setScale(2, RoundingMode.HALF_UP);
-        return RUPEE_SYMBOL + " " + INDIAN_MONEY_FORMAT.get().format(difference);
+        String numeric = formatAmount(difference, 2);
+        if (numeric.isEmpty()) {
+            return "";
+        }
+        if (numeric.startsWith("-")) {
+            return "-" + RUPEE_SYMBOL + " " + numeric.substring(1);
+        }
+        return RUPEE_SYMBOL + " " + numeric;
     }
 
     public String perUnit(BigDecimal totalAmount, Integer quantity) {
