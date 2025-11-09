@@ -122,9 +122,39 @@ The runnable JAR will be emitted at `target/billing-0.0.1-SNAPSHOT.jar`.
 
 ### Useful developer tools
 
-- **H2 console:** `http://localhost:8080/h2-console` with JDBC URL `jdbc:h2:mem:billing` to inspect persisted invoices.
+- **H2 console:** `http://localhost:8080/h2-console` with JDBC URL `jdbc:h2:mem:billing` to inspect persisted invoices. Log in as `sa` with an empty password by default. The console lets you query the in-memory database, inspect generated invoice/item rows, and validate GST calculations during development without leaving the browser.
 - **Thymeleaf caching disabled:** update HTML templates and refresh to see changes immediately during development.
 - **Logging:** adjust `logging.level.com.example.billing=DEBUG` to trace service flow.
+
+### Twilio WhatsApp sandbox setup
+
+1. Create or sign in to a Twilio account and activate the WhatsApp sandbox from the [Twilio Console](https://console.twilio.com/).
+2. Join the sandbox by sending the provided join code from your personal WhatsApp number to the sandbox number.
+3. Collect the credentials displayed in the console: **Account SID**, **Auth Token**, and the **WhatsApp sandbox number** (format `whatsapp:+14155238886`).
+4. Export the credentials as environment variables before launching the app (or add them to `application.properties`):
+
+   ```bash
+   export TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   export TWILIO_AUTH_TOKEN=your_auth_token
+   export APP_WHATSAPP_FROM=whatsapp:+14155238886
+   export APP_WHATSAPP_ENABLED=true
+   ```
+
+5. Point `APP_BASE_URL` to an address reachable by recipients so the PDF download link inside the WhatsApp message resolves correctly.
+
+### Send PDFs to multiple WhatsApp numbers
+
+`WhatsAppService` expects a comma-separated list of E.164 formatted numbers in the `to` field (e.g., `whatsapp:+919876543210,whatsapp:+447911123456`). During development you can supply the list through the invoice form or directly set `APP_WHATSAPP_TO` in the environment. The service fans out individual messages for each recipient, reusing the generated PDF link.
+
+### JVM printing configuration
+
+The application uses `PrintService` to hand off generated PDFs to the JVM default printer via the Java Desktop printing APIs. Ensure the runtime machine has:
+
+1. A graphical environment (headless servers typically lack printer support).
+2. A default printer configured at the OS level; Java will select this automatically.
+3. If multiple printers exist, override the default by setting `APP_PRINTER_NAME` to the exact printer name exposed by the OS.
+
+Set `APP_PRINT_ENABLED=true` to activate printing; leave it `false` when running headless or without a printer. Review JVM logs for `javax.print` warnings to diagnose driver or permission issues.
 
 ---
 
