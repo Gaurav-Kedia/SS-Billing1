@@ -26,17 +26,28 @@
         }
 
         .brand-row {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 12px;
+            width: 100%;
             border: 1px solid #000;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        .brand-row td {
             padding: 4px 10px;
+            vertical-align: top;
         }
 
         .brand-row .company-title {
-            flex: 1;
             padding: 4px 0;
+        }
+
+        .brand-row .brand-info-cell,
+        .brand-row .brand-info-right-cell {
+            width: 25%;
+        }
+
+        .brand-row .company-title-cell {
+            width: 50%;
         }
 
         .brand-info {
@@ -318,21 +329,29 @@
 <div class="sheet">
     <div class="header-top">
         <div class="tax-invoice-title">Tax Invoice</div>
-        <div class="brand-row">
-            <div class="brand-info">
-                <div><span class="label">GSTIN :</span> 21AJRPK1202C1ZZ</div>
-                <div class="state-row">
-                    <span class="label">State :</span>
-                    <span>ODISHA</span>
-                    <span class="label">State Code :</span>
-                    <span>21</span>
-                </div>
-            </div>
-            <div class="company-title">Shankar Sales</div>
-            <div class="brand-info brand-info-right">
-                <div><span class="label">Phone :</span> 9437342214</div>
-            </div>
-        </div>
+        <table class="brand-row">
+            <tr>
+                <td class="brand-info-cell">
+                    <div class="brand-info">
+                        <div><span class="label">GSTIN :</span> 21AJRPK1202C1ZZ</div>
+                        <div class="state-row">
+                            <span class="label">State :</span>
+                            <span>ODISHA</span>
+                            <span class="label">State Code :</span>
+                            <span>21</span>
+                        </div>
+                    </div>
+                </td>
+                <td class="company-title-cell">
+                    <div class="company-title">Shankar Sales</div>
+                </td>
+                <td class="brand-info-right-cell">
+                    <div class="brand-info brand-info-right">
+                        <div><span class="label">Phone :</span> 9437342214</div>
+                    </div>
+                </td>
+            </tr>
+        </table>
     </div>
     <div class="subtitle">
         <strong>WPC Frame and Doors, PVC / Fibre Door &amp; Windows, Aluminium Door &amp; Windows</strong>
